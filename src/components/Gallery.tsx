@@ -25,25 +25,38 @@ export default function Gallery() {
         : IMAGES.filter(img => img.category === activeCategory);
 
     return (
-        <section id="portfolio" className="py-24 bg-black">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-6 md:space-y-0 text-center md:text-left">
-                    <div className="space-y-2">
-                        <h2 className="text-4xl font-bold tracking-tight uppercase">Featured Work</h2>
-                        <div className="h-1 w-20 bg-white mx-auto md:mx-0" />
+        <section id="portfolio" className="py-24 sm:py-40 bg-black border-y border-white/5">
+            <div className="max-w-7xl mx-auto px-6 sm:px-12">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 space-y-12 lg:space-y-0 text-center lg:text-left">
+                    <div className="space-y-4 max-w-xl">
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            className="text-white/20 text-[10px] font-bold tracking-[0.6em] uppercase"
+                        >
+                            Selection
+                        </motion.p>
+                        <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter uppercase leading-[0.85]">Selected <br /> Works</h2>
+                        <p className="text-white/30 text-xs sm:text-sm font-light max-w-xs mx-auto lg:mx-0">
+                            A curated collection across three distinct domains of photography.
+                        </p>
                     </div>
 
-                    <div className="flex flex-wrap justify-center gap-4 text-xs font-bold tracking-widest uppercase">
+                    <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-[10px] font-bold tracking-[0.3em] uppercase">
                         {CATEGORIES.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`pb-1 transition-all ${activeCategory === cat
-                                        ? "text-white border-b-2 border-white"
-                                        : "text-white/40 border-b-2 border-transparent hover:text-white/70"
+                                className={`relative pb-2 transition-all group ${activeCategory === cat ? "text-white" : "text-white/30 hover:text-white"
                                     }`}
                             >
                                 {cat}
+                                {activeCategory === cat && (
+                                    <motion.div
+                                        layoutId="underline"
+                                        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-white opacity-50"
+                                    />
+                                )}
                             </button>
                         ))}
                     </div>
@@ -51,30 +64,34 @@ export default function Gallery() {
 
                 <motion.div
                     layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 sm:gap-20"
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredImages.map((image) => (
                             <motion.div
                                 key={image.id}
                                 layout
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.5 }}
-                                className="group relative aspect-[3/4] overflow-hidden bg-neutral-900"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.6 }}
+                                viewport={{ once: true }}
+                                className="group relative"
                             >
-                                <img
-                                    src={image.url}
-                                    alt={image.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    loading="lazy"
-                                />
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                                <div className="overflow-hidden aspect-[3/4] bg-neutral-900 rounded-sm">
+                                    <img
+                                        src={image.url}
+                                        alt={image.title}
+                                        className="w-full h-full object-cover transition-transform duration-1000 scale-[1.01] group-hover:scale-105"
+                                        loading="lazy"
+                                    />
+                                </div>
+                                <div className="mt-8 flex justify-between items-end">
                                     <div className="space-y-1">
-                                        <p className="text-xs text-accent font-bold tracking-widest uppercase">{image.category}</p>
-                                        <h3 className="text-xl font-medium tracking-tight">{image.title}</h3>
+                                        <p className="text-[10px] text-white/20 font-bold tracking-widest uppercase">{image.category}</p>
+                                        <h3 className="text-sm font-medium tracking-wide text-white/80">{image.title}</h3>
                                     </div>
+                                    <div className="w-10 h-[1px] bg-white/10 mb-2" />
                                 </div>
                             </motion.div>
                         ))}

@@ -4,53 +4,61 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
-        <section className="relative h-screen flex items-center justify-center overflow-hidden">
-            {/* Immersive Background */}
+        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+            {/* Premium Background with Parallax and Dot Grid */}
             <div className="absolute inset-0 z-0">
-                <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10s] ease-linear scale-110"
+                <motion.div
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
                         backgroundImage: "url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2070&auto=format&fit=crop')",
-                        filter: "brightness(0.3)"
+                        filter: "brightness(0.35) contrast(1.1)"
                     }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+                <div className="absolute inset-0 opacity-[0.1]"
+                    style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
             </div>
 
-            <div className="relative z-10 text-center px-6">
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
+            <div className="relative z-10 text-center px-6 max-w-5xl">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-accent text-sm md:text-base font-medium tracking-[0.4em] uppercase mb-4"
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="inline-block px-4 py-1.5 border border-white/10 bg-white/5 backdrop-blur-md rounded-full mb-8"
                 >
-                    Priyanshu Bandhu Presents
-                </motion.p>
+                    <p className="text-white/60 text-[10px] sm:text-xs font-bold tracking-[0.4em] uppercase">
+                        Priyanshu Bandhu Presents
+                    </p>
+                </motion.div>
 
                 <motion.h1
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-5xl md:text-8xl font-bold tracking-tighter text-white mb-8"
+                    transition={{ duration: 1, delay: 0.2 }}
+                    className="text-5xl sm:text-7xl lg:text-9xl font-bold tracking-tighter text-white mb-10 leading-[0.85] uppercase"
                 >
-                    Capturing <br /> <span className="text-white/80 italic">Unspoken</span> Stories.
+                    Capturing <br />
+                    <span className="text-white/30 italic font-light font-serif lowercase">Unspoken</span> Stories.
                 </motion.h1>
 
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.8 }}
-                    className="flex flex-col md:flex-row items-center justify-center gap-6"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-12"
                 >
                     <a
                         href="#portfolio"
-                        className="px-8 py-3 bg-white text-black text-sm font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors"
+                        className="w-full sm:w-auto px-12 py-4 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all rounded-sm"
                     >
                         Explore Work
                     </a>
                     <a
                         href="#contact"
-                        className="px-8 py-3 border border-white/30 text-white text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all"
+                        className="w-full sm:w-auto px-12 py-4 border border-white/20 text-white text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-white/10 transition-all rounded-sm"
                     >
                         Get In Touch
                     </a>
@@ -61,9 +69,9 @@ export default function Hero() {
             <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30"
+                className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20"
             >
-                <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent mx-auto" />
+                <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent mx-auto" />
             </motion.div>
         </section>
     );
