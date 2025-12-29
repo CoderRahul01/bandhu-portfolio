@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const CATEGORIES = ["ALL", "PORTRAITS", "NATURE", "STREETS"];
+const CATEGORIES = ["ALL", "PORTRAITS", "EVENTS", "STREET"];
 
 const IMAGES = [
     { id: 1, category: "PORTRAITS", url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=687&auto=format&fit=crop", title: "Soul" },
-    { id: 2, category: "NATURE", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop", title: "Mist" },
-    { id: 3, category: "STREETS", url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2013&auto=format&fit=crop", title: "Neon" },
-    { id: 4, category: "PORTRAITS", url: "https://images.unsplash.com/photo-1531746020798-e795c5399c5c?q=80&w=764&auto=format&fit=crop", title: "Perspective" },
-    { id: 5, category: "NATURE", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop", title: "Deep Forest" },
-    { id: 6, category: "STREETS", url: "https://images.unsplash.com/photo-1449156001437-37c645dce501?q=80&w=2070&auto=format&fit=crop", title: "Cobblestone" },
-    { id: 7, category: "PORTRAITS", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop", title: "Gaze" },
-    { id: 8, category: "NATURE", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=1950&auto=format&fit=crop", title: "Horizon" },
-    { id: 9, category: "STREETS", url: "https://images.unsplash.com/photo-1493397212122-2b85def8d0b0?q=80&w=2070&auto=format&fit=crop", title: "Modernist" },
+    { id: 2, category: "PORTRAITS", url: "https://images.unsplash.com/photo-1605369527339-b9d97a61250b?q=80&w=687&auto=format&fit=crop", title: "Raw" },
+    { id: 3, category: "EVENTS", url: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2070&auto=format&fit=crop", title: "Connection" },
+    { id: 4, category: "STREET", url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2013&auto=format&fit=crop", title: "Neon" },
+    { id: 5, category: "PORTRAITS", url: "https://images.unsplash.com/photo-1531746020798-e795c5399c5c?q=80&w=764&auto=format&fit=crop", title: "Perspective" },
+    { id: 6, category: "EVENTS", url: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop", title: "Energy" },
+    { id: 7, category: "STREET", url: "https://images.unsplash.com/photo-1449156001437-37c645dce501?q=80&w=2070&auto=format&fit=crop", title: "Cobblestone" },
+    { id: 8, category: "PORTRAITS", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop", title: "Gaze" },
+    { id: 9, category: "STREET", url: "https://images.unsplash.com/photo-1493397212122-2b85def8d0b0?q=80&w=2070&auto=format&fit=crop", title: "Modernist" },
 ];
 
 export default function Gallery() {

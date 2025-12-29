@@ -5,7 +5,7 @@ export default function Footer() {
                 <div className="space-y-3">
                     <h3 className="text-xl font-bold tracking-widest">PROFILESHOTS</h3>
                     <p className="text-white/40 text-sm max-w-xs">
-                        Capturing the raw essence of human portraits, nature's tranquility, and the pulse of streets.
+                        Between presence and memory, there is a photograph.
                     </p>
                 </div>
 

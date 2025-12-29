@@ -34,25 +34,32 @@ export default function About() {
                     <div className="space-y-4">
                         <span className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase">The Visionary</span>
                         <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter leading-[0.9] uppercase">Priyanshu <br /> Bandhu</h2>
+                        <p className="text-white/40 text-[10px] sm:text-xs font-medium tracking-widest uppercase pt-2">
+                            Photography journey since 2018 | Professional work since 2021
+                        </p>
                     </div>
 
                     <div className="space-y-6 text-white/40 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
                         <p>
-                            Under the name <span className="text-white">Profileshots</span>, I seek to bridge the gap between human emotion and the frozen frame. Every click is a search for truth within the chaos of the streets and the quietude of nature.
+                            Under the name <span className="text-white">Profileshots</span>, I focus on creating honest portraits and candid moments that feel natural and unforced.
                         </p>
                         <p>
-                            Based out of India, my work is a dedication to the craft of storytelling through light. I don't just take pictures; I capture moments that would otherwise be lost to time.
+                            My approach is simple — observe quietly, understand the person in front of the lens, and let real expressions emerge without interruption. I believe the strongest photographs are created when people are comfortable being themselves.
+                        </p>
+                        <p>
+                            Based in India, my work revolves around portraits, events, and street moments, capturing emotion through light, timing, and authenticity. Every frame is an attempt to preserve a moment exactly as it felt.
                         </p>
                     </div>
 
-                    <div className="pt-8 flex flex-wrap justify-center lg:justify-start gap-12 border-t border-white/5">
-                        <div>
-                            <p className="text-white text-3xl font-light tracking-tighter">05+</p>
-                            <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Years Experience</p>
+                    <div className="pt-8 flex flex-col sm:flex-row gap-8 sm:gap-12 border-t border-white/5">
+                        <div className="max-w-[200px]">
+                            <p className="text-white/60 text-xs leading-relaxed font-medium">
+                                Exploring photography since <span className="text-white">2018</span>, working professionally since <span className="text-white">2021</span>.
+                            </p>
                         </div>
                         <div>
-                            <p className="text-white text-3xl font-light tracking-tighter">500+</p>
-                            <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Projects Shot</p>
+                            <p className="text-white text-3xl font-light tracking-tighter">300+</p>
+                            <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Portraits Delivered</p>
                         </div>
                     </div>
                 </motion.div>
