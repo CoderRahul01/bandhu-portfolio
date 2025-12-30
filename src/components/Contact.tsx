@@ -144,7 +144,14 @@ export default function Contact() {
                         onClick={handleOpenModal}
                         className="flex flex-col items-center justify-center p-10 sm:p-14 bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.03] transition-all group rounded-sm w-full"
                     >
-                        <Mail size={40} className="text-white/20 group-hover:text-white transition-colors mb-6" />
+                        <svg
+                            viewBox="0 0 24 24"
+                            className="w-[40px] h-[40px] text-white/20 group-hover:text-white transition-colors mb-6"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
                         <div className="text-center space-y-2">
                             <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">Email</p>
                             <p className="text-base font-medium flex items-center justify-center">
