@@ -57,8 +57,8 @@ export default function About() {
                             <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Portraits Delivered</p>
                         </div>
                         <p className="text-white/60 text-xs leading-relaxed font-medium text-center lg:text-left">
-                            Exploring photography since <span className="text-white">2018</span>,<br />
-                            working professionally since <span className="text-white">2021</span>.
+                            Exploring photography since <span className="text-white">2018</span> | <br />
+                            Working professionally since <span className="text-white">2021</span>.
                         </p>
                     </div>
                 </motion.div>
