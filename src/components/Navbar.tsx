@@ -53,19 +53,19 @@ export default function Navbar() {
                         >
                             <Instagram size={18} />
                         </a>
-                        <button
-                            className="md:hidden text-white/60 hover:text-white transition-colors"
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        >
-                            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                        </button>
                         <a
-                            href="mailto:llprofileshotsll@gmail.com"
-                            className="hidden md:block text-white/40 hover:text-white transition-colors"
+                            href="mailto:llprofileshotsll@gmail.com?subject=Capture%20a%20Moment%20with%20llprofileshotsll&body=Hi%20Priyanshu%2C%0D%0A%0D%0AI%20love%20your%20work%20on%20llprofileshotsll%20and%20would%20like%20to%20discuss%20a%20potential%20photography%20project%20with%20you.%0D%0A%0D%0ABest%20regards%2C"
+                            className="text-white/40 hover:text-white transition-colors"
                             aria-label="Email"
                         >
                             <Mail size={18} />
                         </a>
+                        <button
+                            className="md:hidden text-white/60 hover:text-white transition-colors pl-2"
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        >
+                            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
                     </div>
                 </div>
             </motion.nav>
@@ -114,7 +114,7 @@ export default function Navbar() {
                             <a href="https://www.instagram.com/_profileshots_?igsh=MWJ1bGl3bjZmZGI4YQ==" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white">
                                 <Instagram size={28} />
                             </a>
-                            <a href="mailto:llprofileshotsll@gmail.com" className="text-white/40 hover:text-white">
+                            <a href="mailto:llprofileshotsll@gmail.com?subject=Capture%20a%20Moment%20with%20llprofileshotsll&body=Hi%20Priyanshu%2C%0D%0A%0D%0AI%20love%20your%20work%20on%20llprofileshotsll%20and%20would%20like%20to%20discuss%20a%20potential%20photography%20project%20with%20you.%0D%0A%0D%0ABest%20regards%2C" className="text-white/40 hover:text-white">
                                 <Mail size={28} />
                             </a>
                         </div>
