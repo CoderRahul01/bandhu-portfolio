@@ -33,7 +33,7 @@ export default function Navbar() {
                         href="/"
                         className="text-lg sm:text-xl font-bold tracking-[0.3em] text-white hover:text-white/70 transition-colors"
                     >
-                        profileshots
+                        llprofileshotsll
                     </Link>
 
                     {/* Desktop Links */}

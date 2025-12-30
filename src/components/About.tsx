@@ -41,7 +41,7 @@ export default function About() {
 
                     <div className="space-y-6 text-white/40 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
                         <p>
-                            Under the name <span className="text-white">profileshots</span>, I focus on creating honest portraits and candid moments that feel natural and unforced.
+                            Under the name <span className="text-white">llprofileshotsll</span>, I focus on creating honest portraits and candid moments that feel natural and unforced.
                         </p>
                         <p>
                             My approach is simple — observe quietly, understand the person in front of the lens, and let real expressions emerge without interruption. I believe the strongest photographs are created when people are comfortable being themselves.

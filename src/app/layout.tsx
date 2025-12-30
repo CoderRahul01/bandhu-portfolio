@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "profileshots | Priyanshu Bandhu",
+  title: "llprofileshotsll | Priyanshu Bandhu",
   description: "Professional photography portfolio of Priyanshu Bandhu specializing in human portraits, nature, and street photography.",
 };
 
