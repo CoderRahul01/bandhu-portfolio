@@ -24,16 +24,16 @@ export default function Navbar() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                        ? "bg-black/90 backdrop-blur-xl py-4 border-b border-white/5"
-                        : "bg-transparent py-6 sm:py-8"
+                    ? "bg-black/90 backdrop-blur-xl py-4 border-b border-white/5"
+                    : "bg-transparent py-6 sm:py-8"
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-6 sm:px-12 flex justify-between items-center">
                     <Link
                         href="/"
-                        className="text-lg sm:text-xl font-bold tracking-[0.3em] text-white hover:text-white/70 transition-colors uppercase"
+                        className="text-lg sm:text-xl font-bold tracking-[0.3em] text-white hover:text-white/70 transition-colors"
                     >
-                        Profileshots
+                        profileshots
                     </Link>
 
                     {/* Desktop Links */}

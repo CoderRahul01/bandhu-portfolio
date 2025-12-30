@@ -41,7 +41,7 @@ export default function About() {
 
                     <div className="space-y-6 text-white/40 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
                         <p>
-                            Under the name <span className="text-white">Profileshots</span>, I focus on creating honest portraits and candid moments that feel natural and unforced.
+                            Under the name <span className="text-white">profileshots</span>, I focus on creating honest portraits and candid moments that feel natural and unforced.
                         </p>
                         <p>
                             My approach is simple — observe quietly, understand the person in front of the lens, and let real expressions emerge without interruption. I believe the strongest photographs are created when people are comfortable being themselves.
@@ -52,14 +52,14 @@ export default function About() {
                     </div>
 
                     <div className="pt-8 flex flex-col sm:flex-row gap-8 sm:gap-12 border-t border-white/5">
+                        <div>
+                            <p className="text-white text-3xl font-light tracking-tighter">300+</p>
+                            <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Portraits Delivered</p>
+                        </div>
                         <div className="max-w-[200px]">
                             <p className="text-white/60 text-xs leading-relaxed font-medium">
                                 Exploring photography since <span className="text-white">2018</span>, working professionally since <span className="text-white">2021</span>.
                             </p>
-                        </div>
-                        <div>
-                            <p className="text-white text-3xl font-light tracking-tighter">300+</p>
-                            <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Portraits Delivered</p>
                         </div>
                     </div>
                 </motion.div>

@@ -68,7 +68,7 @@ export default function Hero() {
                         </a>
                     </div>
                     <p className="text-white/30 text-[10px] tracking-widest uppercase">
-                        Portrait photographer based in India.
+                        Photographer based in India.
                     </p>
                 </motion.div>
             </div>
