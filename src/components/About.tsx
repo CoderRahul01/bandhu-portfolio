@@ -51,16 +51,15 @@ export default function About() {
                         </p>
                     </div>
 
-                    <div className="pt-8 flex flex-col sm:flex-row lg:flex-col gap-8 sm:gap-12 lg:gap-4 border-t border-white/5">
-                        <div>
+                    <div className="pt-8 flex flex-col items-center lg:items-start gap-4 border-t border-white/5">
+                        <div className="text-center lg:text-left">
                             <p className="text-white text-3xl font-light tracking-tighter">300+</p>
                             <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Portraits Delivered</p>
                         </div>
-                        <div className="max-w-[200px] lg:max-w-none">
-                            <p className="text-white/60 text-xs leading-relaxed font-medium lg:whitespace-nowrap">
-                                Exploring photography since <span className="text-white">2018</span>, working professionally since <span className="text-white">2021</span>.
-                            </p>
-                        </div>
+                        <p className="text-white/60 text-xs leading-relaxed font-medium text-center lg:text-left">
+                            Exploring photography since <span className="text-white">2018</span>,<br />
+                            working professionally since <span className="text-white">2021</span>.
+                        </p>
                     </div>
                 </motion.div>
             </div>
