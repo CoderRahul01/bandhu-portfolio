@@ -34,9 +34,6 @@ export default function About() {
                     <div className="space-y-4">
                         <span className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase">The Visionary</span>
                         <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter leading-[0.9] uppercase">Priyanshu <br /> Bandhu</h2>
-                        <p className="text-white/40 text-[10px] sm:text-xs font-medium tracking-widest uppercase pt-2">
-                            Photography journey since 2018 | Professional work since 2021
-                        </p>
                     </div>
 
                     <div className="space-y-6 text-white/40 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">

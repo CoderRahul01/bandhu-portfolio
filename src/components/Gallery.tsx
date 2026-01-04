@@ -21,6 +21,30 @@ const IMAGES = Object.entries(IMAGE_COUNTS).flatMap(([category, count]) =>
     }))
 );
 
+function ImageComponent({ url, title }: { url: string; title: string }) {
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    return (
+        <>
+            {!isLoaded && (
+                <div className="absolute inset-0 bg-neutral-900 animate-pulse flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-white/5 border-t-white/20 rounded-full animate-spin" />
+                </div>
+            )}
+            <img
+                src={url}
+                alt={title}
+                className={`w-full h-full object-cover transition-all duration-1000 scale-[1.01] group-hover:scale-105 select-none touch-none pointer-events-auto ${isLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                loading="lazy"
+                onLoad={() => setIsLoaded(true)}
+                onContextMenu={(e) => e.preventDefault()}
+                onDragStart={(e) => e.preventDefault()}
+            />
+        </>
+    );
+}
+
 export default function Gallery() {
     const [activeCategory, setActiveCategory] = useState("ALL");
 
@@ -82,15 +106,8 @@ export default function Gallery() {
                                 viewport={{ once: true }}
                                 className="group relative"
                             >
-                                <div className="overflow-hidden aspect-[3/4] bg-neutral-900 rounded-sm">
-                                    <img
-                                        src={image.url}
-                                        alt={image.title}
-                                        className="w-full h-full object-cover transition-transform duration-1000 scale-[1.01] group-hover:scale-105 select-none touch-none pointer-events-auto"
-                                        loading="lazy"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        onDragStart={(e) => e.preventDefault()}
-                                    />
+                                <div className="overflow-hidden aspect-[3/4] bg-neutral-900 rounded-sm relative">
+                                    <ImageComponent url={image.url} title={image.title} />
                                 </div>
                                 <div className="mt-8 flex justify-between items-end">
                                     <div className="space-y-1">

@@ -54,7 +54,7 @@ export default function Navbar() {
                             <Instagram size={18} />
                         </a>
                         <a
-                            href="https://mail.google.com/mail/?view=cm&fs=1&to=llprofileshotsll@gmail.com&su=Capture%20a%20Moment%20with%20llprofileshotsll&body=Hi%20Priyanshu%2C%0D%0A%0D%0AI%20love%20your%20work%20on%20llprofileshotsll%20and%20would%20like%20to%20discuss%20a%20potential%20photography%20project%20with%20you.%0D%0A%0D%0ABest%20regards%2C"
+                            href="https://mail.google.com/mail/?view=cm&fs=1&to=llprofileshotsll@gmail.com&su=Photography%20Inquiry%20via%20llprofileshotsll&body=Hi%20Priyanshu%2C%0D%0A%0D%0AI%20love%20your%20work%20on%20llprofileshotsll%20and%20would%20like%20to%20discuss%20a%20potential%20photography%20project%20with%20you.%0D%0A%0D%0ABest%20regards%2C"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-white/40 hover:text-white transition-colors"
@@ -124,7 +124,7 @@ export default function Navbar() {
                                 <Instagram size={28} />
                             </a>
                             <a
-                                href="https://mail.google.com/mail/?view=cm&fs=1&to=llprofileshotsll@gmail.com&su=Capture%20a%20Moment%20with%20llprofileshotsll&body=Hi%20Priyanshu%2C%0D%0A%0D%0AI%20love%20your%20work%20on%20llprofileshotsll%20and%20would%20like%20to%20discuss%20a%20potential%20photography%20project%20with%20you.%0D%0A%0D%0ABest%20regards%2C"
+                                href="https://mail.google.com/mail/?view=cm&fs=1&to=llprofileshotsll@gmail.com&su=Photography%20Inquiry%20via%20llprofileshotsll&body=Hi%20Priyanshu%2C%0D%0A%0D%0AI%20love%20your%20work%20on%20llprofileshotsll%20and%20would%20like%20to%20discuss%20a%20potential%20photography%20project%20with%20you.%0D%0A%0D%0ABest%20regards%2C"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-white/40 hover:text-white"
