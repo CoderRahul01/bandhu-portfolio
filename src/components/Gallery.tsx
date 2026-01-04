@@ -5,10 +5,21 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const CATEGORIES = ["ALL", "PORTRAITS", "WEDDING", "STREET"];
 
-const IMAGES: any[] = [
-    // Add images here serially
-    // { id: 1, category: "PORTRAITS", url: "...", title: "..." },
-];
+// UPDATE THESE COUNTS AS YOU ADD IMAGES TO THE PUBLIC FOLDERS
+const IMAGE_COUNTS = {
+    PORTRAITS: 4,
+    WEDDING: 6,
+    STREET: 6
+};
+
+const IMAGES = Object.entries(IMAGE_COUNTS).flatMap(([category, count]) =>
+    Array.from({ length: count }).map((_, i) => ({
+        id: `${category}-${i + 1}`,
+        category,
+        url: `/${category}/${i + 1}.jpg`, // Expects images like /public/WEDDING/1.jpg
+        title: `${category.charAt(0)}${category.slice(1).toLowerCase()} ${i + 1}`
+    }))
+);
 
 export default function Gallery() {
     const [activeCategory, setActiveCategory] = useState("ALL");
@@ -75,8 +86,10 @@ export default function Gallery() {
                                     <img
                                         src={image.url}
                                         alt={image.title}
-                                        className="w-full h-full object-cover transition-transform duration-1000 scale-[1.01] group-hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-1000 scale-[1.01] group-hover:scale-105 select-none touch-none pointer-events-auto"
                                         loading="lazy"
+                                        onContextMenu={(e) => e.preventDefault()}
+                                        onDragStart={(e) => e.preventDefault()}
                                     />
                                 </div>
                                 <div className="mt-8 flex justify-between items-end">

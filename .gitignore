@@ -38,4 +38,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+# image assets (private)
+/public/PORTRAITS/
+/public/WEDDING/
+/public/STREET/

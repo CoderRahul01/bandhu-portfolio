@@ -32,6 +32,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Global image security and aesthetics */
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
 /* Subtle grain texture to hide banding and add premium feel */
 body::before {
   content: "";
