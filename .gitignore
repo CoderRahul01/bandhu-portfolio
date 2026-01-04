@@ -39,6 +39,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 # image assets (private)
-/public/PORTRAITS/
-/public/WEDDING/
-/public/STREET/
+/public/images/

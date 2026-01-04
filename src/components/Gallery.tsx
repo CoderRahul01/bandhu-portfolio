@@ -4,23 +4,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
+import galleryData from "@/data/gallery.json";
+
 const CATEGORIES = ["ALL", "PORTRAITS", "WEDDING", "STREET"];
 
-// UPDATE THESE COUNTS AS YOU ADD IMAGES TO THE PUBLIC FOLDERS
-const IMAGE_COUNTS = {
-    PORTRAITS: 4,
-    WEDDING: 6,
-    STREET: 6
-};
-
-const IMAGES = Object.entries(IMAGE_COUNTS).flatMap(([category, count]) =>
-    Array.from({ length: count }).map((_, i) => ({
-        id: `${category}-${i + 1}`,
-        category,
-        url: `/${category}/${i + 1}.jpg`, // Expects images like /public/WEDDING/1.jpg
-        title: `${category.charAt(0)}${category.slice(1).toLowerCase()} ${i + 1}`
-    }))
-);
+const IMAGES = galleryData;
 
 function ImageComponent({ url, title, priority = false }: { url: string; title: string; priority?: boolean }) {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -41,7 +29,6 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                     className="object-cover select-none touch-none pointer-events-auto group-hover:scale-105 transition-transform duration-1000"
                     onLoad={() => setIsLoaded(true)}
                     priority={priority}
-                    unoptimized={true}
                 />
                 {/* Security Overlay (Transparent) */}
                 <div

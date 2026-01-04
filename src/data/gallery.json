@@ -1,0 +1,98 @@
+[
+    {
+        "id": "portraits-1",
+        "category": "PORTRAITS",
+        "url": "/images/PORTRAITS/1.jpg",
+        "title": "Portraits 1"
+    },
+    {
+        "id": "portraits-2",
+        "category": "PORTRAITS",
+        "url": "/images/PORTRAITS/2.jpg",
+        "title": "Portraits 2"
+    },
+    {
+        "id": "portraits-3",
+        "category": "PORTRAITS",
+        "url": "/images/PORTRAITS/3.jpg",
+        "title": "Portraits 3"
+    },
+    {
+        "id": "portraits-4",
+        "category": "PORTRAITS",
+        "url": "/images/PORTRAITS/4.jpg",
+        "title": "Portraits 4"
+    },
+    {
+        "id": "wedding-1",
+        "category": "WEDDING",
+        "url": "/images/WEDDING/1.jpg",
+        "title": "Wedding 1"
+    },
+    {
+        "id": "wedding-2",
+        "category": "WEDDING",
+        "url": "/images/WEDDING/2.jpg",
+        "title": "Wedding 2"
+    },
+    {
+        "id": "wedding-3",
+        "category": "WEDDING",
+        "url": "/images/WEDDING/3.jpg",
+        "title": "Wedding 3"
+    },
+    {
+        "id": "wedding-4",
+        "category": "WEDDING",
+        "url": "/images/WEDDING/4.jpg",
+        "title": "Wedding 4"
+    },
+    {
+        "id": "wedding-5",
+        "category": "WEDDING",
+        "url": "/images/WEDDING/5.jpg",
+        "title": "Wedding 5"
+    },
+    {
+        "id": "wedding-6",
+        "category": "WEDDING",
+        "url": "/images/WEDDING/6.jpg",
+        "title": "Wedding 6"
+    },
+    {
+        "id": "street-1",
+        "category": "STREET",
+        "url": "/images/STREET/1.jpg",
+        "title": "Street 1"
+    },
+    {
+        "id": "street-2",
+        "category": "STREET",
+        "url": "/images/STREET/2.jpg",
+        "title": "Street 2"
+    },
+    {
+        "id": "street-3",
+        "category": "STREET",
+        "url": "/images/STREET/3.jpg",
+        "title": "Street 3"
+    },
+    {
+        "id": "street-4",
+        "category": "STREET",
+        "url": "/images/STREET/4.jpg",
+        "title": "Street 4"
+    },
+    {
+        "id": "street-5",
+        "category": "STREET",
+        "url": "/images/STREET/5.jpg",
+        "title": "Street 5"
+    },
+    {
+        "id": "street-6",
+        "category": "STREET",
+        "url": "/images/STREET/6.jpg",
+        "title": "Street 6"
+    }
+]
