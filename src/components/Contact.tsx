@@ -54,7 +54,7 @@ export default function Contact() {
                                     type="text"
                                     required
                                     className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors rounded-sm"
-                                    placeholder="e.g. Portrait, Event, Street"
+                                    placeholder="e.g. Portrait, Wedding, Street"
                                     value={formData.shootType}
                                     onChange={(e) => setFormData({ ...formData, shootType: e.target.value })}
                                 />

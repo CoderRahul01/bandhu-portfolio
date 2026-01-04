@@ -47,15 +47,12 @@ export default function About() {
                             My approach is simple — observe quietly, understand the person in front of the lens, and let real expressions emerge without interruption. I believe the strongest photographs are created when people are comfortable being themselves.
                         </p>
                         <p>
-                            Based in India, my work revolves around portraits, events, and street moments, capturing emotion through light, timing, and authenticity. Every frame is an attempt to preserve a moment exactly as it felt.
+                            Based in India, my work revolves around portraits, weddings, and street moments, capturing emotion through light, timing, and authenticity. Every frame is an attempt to preserve a moment exactly as it felt.
                         </p>
                     </div>
 
-                    <div className="pt-8 flex flex-col items-center lg:items-start gap-4 border-t border-white/5">
-                        <div className="text-center lg:text-left">
-                            <p className="text-white text-3xl font-light tracking-tighter">300+</p>
-                            <p className="text-white/20 text-[10px] uppercase tracking-widest font-bold">Portraits Delivered</p>
-                        </div>
+                    <div className="pt-8 flex flex-col items-center lg:items-start gap-1 border-t border-white/5">
+                        <p className="text-white/20 text-[10px] uppercase tracking-[0.3em] font-bold mb-2">Experience</p>
                         <p className="text-white/60 text-xs leading-relaxed font-medium text-center lg:text-left">
                             Exploring photography since <span className="text-white">2018</span><br />
                             Working professionally since <span className="text-white">2021</span>.
