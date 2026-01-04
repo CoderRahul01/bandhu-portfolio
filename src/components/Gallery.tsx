@@ -10,6 +10,18 @@ const CATEGORIES = ["ALL", "PORTRAITS", "WEDDING", "STREET"];
 
 const IMAGES = galleryData;
 
+// Cloudinary loader for optimized delivery
+const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+    // Cloudinary's auto-optimization and auto-format are better for performance
+    const params = [
+        `w_${width}`,
+        'c_limit',
+        `q_${quality || 'auto'}`,
+        'f_auto'
+    ].join(',');
+    return src.replace('/upload/', `/upload/${params}/`);
+};
+
 function ImageComponent({ url, title, priority = false }: { url: string; title: string; priority?: boolean }) {
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -22,6 +34,7 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
             )}
             <div className={`w-full h-full relative transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
                 <Image
+                    loader={cloudinaryLoader}
                     src={url}
                     alt={title}
                     fill
