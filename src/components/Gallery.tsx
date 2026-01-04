@@ -21,15 +21,11 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                 </div>
             )}
             <div className={`w-full h-full relative transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
-                <Image
+                <img
                     src={url}
                     alt={title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover select-none touch-none pointer-events-auto group-hover:scale-105 transition-transform duration-1000"
+                    className="w-full h-full object-cover select-none touch-none pointer-events-auto group-hover:scale-105 transition-transform duration-1000"
                     onLoad={() => setIsLoaded(true)}
-                    priority={priority}
-                    unoptimized={true}
                 />
                 {/* Security Overlay (Transparent) */}
                 <div
