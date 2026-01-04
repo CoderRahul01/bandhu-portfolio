@@ -32,7 +32,7 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                     <div className="w-8 h-8 border-2 border-white/5 border-t-white/20 rounded-full animate-spin" />
                 </div>
             )}
-            <div className={`w-full h-full relative transition-all duration-1000 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-[1.05]"}`}>
+            <div className={`w-full h-full relative transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
                 <Image
                     src={url}
                     alt={title}
@@ -41,7 +41,7 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                     className="object-cover select-none touch-none pointer-events-auto group-hover:scale-105 transition-transform duration-1000"
                     onLoad={() => setIsLoaded(true)}
                     priority={priority}
-                    quality={85}
+                    unoptimized={true}
                 />
                 {/* Security Overlay (Transparent) */}
                 <div
@@ -121,13 +121,6 @@ export default function Gallery() {
                                         title={image.title}
                                         priority={index < 3}
                                     />
-                                </div>
-                                <div className="mt-8 flex justify-between items-end">
-                                    <div className="space-y-1">
-                                        <p className="text-[10px] text-white/20 font-bold tracking-widest uppercase">{image.category}</p>
-                                        <h3 className="text-sm font-medium tracking-wide text-white/80">{image.title}</h3>
-                                    </div>
-                                    <div className="w-10 h-[1px] bg-white/10 mb-2" />
                                 </div>
                             </motion.div>
                         ))}
