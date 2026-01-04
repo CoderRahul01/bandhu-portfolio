@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const CATEGORIES = ["ALL", "PORTRAITS", "WEDDING", "STREET"];
 
@@ -21,7 +22,7 @@ const IMAGES = Object.entries(IMAGE_COUNTS).flatMap(([category, count]) =>
     }))
 );
 
-function ImageComponent({ url, title }: { url: string; title: string }) {
+function ImageComponent({ url, title, priority = false }: { url: string; title: string; priority?: boolean }) {
     const [isLoaded, setIsLoaded] = useState(false);
 
     return (
@@ -31,16 +32,24 @@ function ImageComponent({ url, title }: { url: string; title: string }) {
                     <div className="w-8 h-8 border-2 border-white/5 border-t-white/20 rounded-full animate-spin" />
                 </div>
             )}
-            <img
-                src={url}
-                alt={title}
-                className={`w-full h-full object-cover transition-all duration-1000 scale-[1.01] group-hover:scale-105 select-none touch-none pointer-events-auto ${isLoaded ? "opacity-100" : "opacity-0"
-                    }`}
-                loading="lazy"
-                onLoad={() => setIsLoaded(true)}
-                onContextMenu={(e) => e.preventDefault()}
-                onDragStart={(e) => e.preventDefault()}
-            />
+            <div className={`w-full h-full relative transition-all duration-1000 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-[1.05]"}`}>
+                <Image
+                    src={url}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover select-none touch-none pointer-events-auto group-hover:scale-105 transition-transform duration-1000"
+                    onLoad={() => setIsLoaded(true)}
+                    priority={priority}
+                    quality={85}
+                />
+                {/* Security Overlay (Transparent) */}
+                <div
+                    className="absolute inset-0 z-10"
+                    onContextMenu={(e) => e.preventDefault()}
+                    onDragStart={(e) => e.preventDefault()}
+                />
+            </div>
         </>
     );
 }
@@ -95,7 +104,7 @@ export default function Gallery() {
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 sm:gap-20"
                 >
                     <AnimatePresence mode="popLayout">
-                        {filteredImages.map((image) => (
+                        {filteredImages.map((image, index) => (
                             <motion.div
                                 key={image.id}
                                 layout
@@ -107,7 +116,11 @@ export default function Gallery() {
                                 className="group relative"
                             >
                                 <div className="overflow-hidden aspect-[3/4] bg-neutral-900 rounded-sm relative">
-                                    <ImageComponent url={image.url} title={image.title} />
+                                    <ImageComponent
+                                        url={image.url}
+                                        title={image.title}
+                                        priority={index < 3}
+                                    />
                                 </div>
                                 <div className="mt-8 flex justify-between items-end">
                                     <div className="space-y-1">

@@ -53,22 +53,12 @@ export default function Navbar() {
                         >
                             <Instagram size={18} />
                         </a>
-                        <a
-                            href="https://mail.google.com/mail/?view=cm&fs=1&to=llprofileshotsll@gmail.com&su=Photography%20Inquiry%20via%20llprofileshotsll&body=Hi%20Priyanshu%2C%0D%0A%0D%0AI%20love%20your%20work%20on%20llprofileshotsll%20and%20would%20like%20to%20discuss%20a%20potential%20photography%20project%20with%20you.%0D%0A%0D%0ABest%20regards%2C"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-white/40 hover:text-white transition-colors"
-                            aria-label="Gmail"
+                        <Link
+                            href="#contact"
+                            className="bg-white text-black px-6 py-2 rounded-sm hover:bg-neutral-200 transition-all uppercase tracking-widest text-[8px] font-bold"
                         >
-                            <svg
-                                viewBox="0 0 24 24"
-                                className="w-[18px] h-[18px]"
-                                fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                            </svg>
-                        </a>
+                            Request Quote
+                        </Link>
                         <button
                             className="md:hidden text-white/60 hover:text-white transition-colors pl-2"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
