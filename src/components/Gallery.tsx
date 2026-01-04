@@ -20,7 +20,7 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                     <div className="w-8 h-8 border-2 border-white/5 border-t-white/20 rounded-full animate-spin" />
                 </div>
             )}
-            <div className={`w-full h-full relative transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
+            <div className={`w-full h-full relative transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
                 <Image
                     src={url}
                     alt={title}
@@ -29,6 +29,7 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                     className="object-cover select-none touch-none pointer-events-auto group-hover:scale-105 transition-transform duration-1000"
                     onLoad={() => setIsLoaded(true)}
                     priority={priority}
+                    unoptimized={true}
                 />
                 {/* Security Overlay (Transparent) */}
                 <div
