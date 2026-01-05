@@ -1,8 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, Mail, ArrowUpRight, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Instagram, Mail, ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 export default function Contact() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,129 +64,6 @@ export default function Contact() {
             {/* Decorative background element */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-white/[0.03] rounded-full blur-[120px] -z-0" />
 
-            {/* Premium Quotation Modal */}
-            <AnimatePresence>
-                {isModalOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center px-6 bg-black/90 backdrop-blur-md"
-                    >
-                        <motion.div
-                            initial={{ y: 50, opacity: 0, scale: 0.95 }}
-                            animate={{ y: 0, opacity: 1, scale: 1 }}
-                            exit={{ y: 50, opacity: 0, scale: 0.95 }}
-                            className="w-full max-w-xl bg-white/[0.02] border border-white/10 p-10 sm:p-16 rounded-sm shadow-2xl relative overflow-hidden group"
-                        >
-                            {/* Subtle background flair */}
-                            <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-white/[0.02] rounded-full blur-[80px] pointer-events-none" />
-
-                            <button
-                                onClick={() => setIsModalOpen(false)}
-                                className="absolute top-8 right-8 text-white/30 hover:text-white transition-colors"
-                                aria-label="Close modal"
-                            >
-                                <X size={24} />
-                            </button>
-
-                            <div className="space-y-10 relative z-10">
-                                <div className="space-y-4">
-                                    <p className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase">Inquiry form</p>
-                                    <h3 className="text-4xl sm:text-6xl font-bold tracking-tighter uppercase leading-none italic font-display">Secure <br /> Date.</h3>
-                                </div>
-
-                                <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
-                                    <div className="space-y-3">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Shoot Type</label>
-                                        <div className="relative group/select">
-                                            <select
-                                                required
-                                                className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer pr-8"
-                                                value={formData.shootType}
-                                                onChange={(e) => setFormData({ ...formData, shootType: e.target.value })}
-                                            >
-                                                <option value="" disabled className="bg-neutral-900">Select Session</option>
-                                                <option value="Portrait" className="bg-neutral-900">Honest Portrait</option>
-                                                <option value="Wedding" className="bg-neutral-900">Candid Wedding</option>
-                                                <option value="Street" className="bg-neutral-900">Street Editorial</option>
-                                                <option value="Commercial" className="bg-neutral-900">Brand / Commercial</option>
-                                            </select>
-                                            <div className="absolute right-0 bottom-3 pointer-events-none text-white/20 group-hover/select:text-white transition-colors">
-                                                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Preferred Date</label>
-                                        <input
-                                            type="date"
-                                            required
-                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors [color-scheme:dark]"
-                                            value={formData.date}
-                                            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                                        />
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Location</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            placeholder="City / Venue"
-                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors placeholder:text-white/5"
-                                            value={formData.location}
-                                            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                        />
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Duration</label>
-                                        <div className="relative group/select">
-                                            <select
-                                                required
-                                                className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer pr-8"
-                                                value={formData.duration}
-                                                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                                            >
-                                                <option value="" disabled className="bg-neutral-900">Select Length</option>
-                                                <option value="2 Hours" className="bg-neutral-900">2 Hours</option>
-                                                <option value="4 Hours" className="bg-neutral-900">4 Hours</option>
-                                                <option value="Full Day" className="bg-neutral-900">Full Day (8h)</option>
-                                                <option value="Multi-day" className="bg-neutral-900">Multi-day Project</option>
-                                            </select>
-                                            <div className="absolute right-0 bottom-3 pointer-events-none text-white/20 group-hover/select:text-white transition-colors">
-                                                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="hidden">
-                                        <input
-                                            type="text"
-                                            name="honeypot"
-                                            value={formData.honeypot}
-                                            onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
-                                            tabIndex={-1}
-                                            autoComplete="off"
-                                        />
-                                    </div>
-                                    <div className="sm:col-span-2 pt-10">
-                                        <button
-                                            type="submit"
-                                            className="w-full bg-white text-black font-bold uppercase tracking-[0.4em] text-[11px] py-6 hover:bg-neutral-200 transition-all flex items-center justify-center group rounded-sm"
-                                        >
-                                            Submit Inquiry <ArrowUpRight size={16} className="ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
             <div className="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-20 lg:space-y-32">
                 <div className="space-y-6">
                     <motion.p
@@ -204,23 +98,119 @@ export default function Contact() {
                         </div>
                     </motion.a>
 
-                    <motion.button
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        onClick={() => setIsModalOpen(true)}
-                        className="flex flex-col items-center justify-center p-10 sm:p-14 bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.03] transition-all group rounded-sm w-full"
-                        aria-label="Request quotation"
-                    >
-                        <Mail size={40} className="text-white/20 group-hover:text-white transition-colors mb-6" />
-                        <div className="text-center space-y-2">
-                            <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">Inquiry</p>
-                            <p className="text-base font-medium flex items-center justify-center">
-                                Request Quote <ArrowUpRight size={14} className="ml-1 opacity-20 group-hover:opacity-100 transition-opacity" />
-                            </p>
-                        </div>
-                    </motion.button>
+                    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                        <DialogTrigger asChild>
+                            <motion.button
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.1 }}
+                                className="flex flex-col items-center justify-center p-10 sm:p-14 bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.03] transition-all group rounded-sm w-full"
+                                aria-label="Request quotation"
+                            >
+                                <Mail size={40} className="text-white/20 group-hover:text-white transition-colors mb-6" />
+                                <div className="text-center space-y-2">
+                                    <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">Inquiry</p>
+                                    <p className="text-base font-medium flex items-center justify-center">
+                                        Request Quote <ArrowUpRight size={14} className="ml-1 opacity-20 group-hover:opacity-100 transition-opacity" />
+                                    </p>
+                                </div>
+                            </motion.button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-xl bg-neutral-950 border-white/10 p-10 sm:p-16 rounded-sm shadow-2xl overflow-hidden focus:outline-none">
+                            {/* Subtle background flair */}
+                            <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-white/[0.02] rounded-full blur-[80px] pointer-events-none" />
+
+                            <DialogHeader className="space-y-4 relative z-10 text-left">
+                                <p className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase">Inquiry form</p>
+                                <DialogTitle className="text-4xl sm:text-6xl font-bold tracking-tighter uppercase leading-none italic font-display text-white">
+                                    Secure <br /> Date.
+                                </DialogTitle>
+                            </DialogHeader>
+
+                            <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 relative z-10 mt-10">
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Shoot Type</Label>
+                                    <Select
+                                        required
+                                        value={formData.shootType}
+                                        onValueChange={(value) => setFormData({ ...formData, shootType: value })}
+                                    >
+                                        <SelectTrigger className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/10 text-white pb-2 text-sm rounded-none px-0 h-auto focus:ring-0 focus:border-white transition-colors">
+                                            <SelectValue placeholder="Select Session" />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-neutral-900 border-white/10 text-white">
+                                            <SelectItem value="Portrait">Honest Portrait</SelectItem>
+                                            <SelectItem value="Wedding">Candid Wedding</SelectItem>
+                                            <SelectItem value="Street">Street Editorial</SelectItem>
+                                            <SelectItem value="Commercial">Brand / Commercial</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Preferred Date</Label>
+                                    <Input
+                                        type="date"
+                                        required
+                                        className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/10 text-white pb-2 text-sm rounded-none px-0 h-auto focus-visible:ring-0 focus-visible:border-white transition-colors [color-scheme:dark]"
+                                        value={formData.date}
+                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Location</Label>
+                                    <Input
+                                        type="text"
+                                        required
+                                        placeholder="City / Venue"
+                                        className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/10 text-white pb-2 text-sm rounded-none px-0 h-auto focus-visible:ring-0 focus-visible:border-white transition-colors placeholder:text-white/5"
+                                        value={formData.location}
+                                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Duration</Label>
+                                    <Select
+                                        required
+                                        value={formData.duration}
+                                        onValueChange={(value) => setFormData({ ...formData, duration: value })}
+                                    >
+                                        <SelectTrigger className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/10 text-white pb-2 text-sm rounded-none px-0 h-auto focus:ring-0 focus:border-white transition-colors">
+                                            <SelectValue placeholder="Select Length" />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-neutral-900 border-white/10 text-white">
+                                            <SelectItem value="2 Hours">2 Hours</SelectItem>
+                                            <SelectItem value="4 Hours">4 Hours</SelectItem>
+                                            <SelectItem value="Full Day">Full Day (8h)</SelectItem>
+                                            <SelectItem value="Multi-day">Multi-day Project</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                <div className="hidden">
+                                    <input
+                                        type="text"
+                                        name="honeypot"
+                                        value={formData.honeypot}
+                                        onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                                        tabIndex={-1}
+                                        autoComplete="off"
+                                    />
+                                </div>
+                                <div className="sm:col-span-2 pt-10">
+                                    <Button
+                                        type="submit"
+                                        className="w-full bg-white text-black font-bold uppercase tracking-[0.4em] text-[11px] py-8 hover:bg-neutral-200 transition-all flex items-center justify-center group rounded-sm h-auto"
+                                    >
+                                        Submit Inquiry <ArrowUpRight size={16} className="ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                    </Button>
+                                </div>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
                 </div>
 
                 <div className="pt-10 flex flex-col items-center space-y-4">
