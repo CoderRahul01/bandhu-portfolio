@@ -1,6 +1,10 @@
-"use client";
-
+import Image from "next/image";
 import { motion } from "framer-motion";
+
+const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+    const params = [`w_${width}`, 'c_limit', `q_${quality || 'auto'}`, 'f_auto'].join(',');
+    return src.replace('/upload/', `/upload/${params}/`);
+};
 
 export default function About() {
     return (
@@ -13,11 +17,14 @@ export default function About() {
                     viewport={{ once: true }}
                     className="relative order-2 lg:order-1"
                 >
-                    <div className="aspect-[3/4] overflow-hidden rounded-sm grayscale">
-                        <img
+                    <div className="aspect-[3/4] overflow-hidden rounded-sm grayscale relative">
+                        <Image
+                            loader={cloudinaryLoader}
                             src="https://res.cloudinary.com/dcm3t1tyj/image/upload/v1767628455/bandhu-portfolio/ABOUT/priyanshu-bandhu.jpg"
                             alt="Priyanshu Bandhu"
-                            className="w-full h-full object-cover transition-all duration-1000 scale-105 hover:scale-100"
+                            fill
+                            className="object-cover transition-all duration-1000 scale-105 hover:scale-100"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
                         />
                     </div>
                     <div className="absolute top-8 left-8 w-24 h-24 border-t border-l border-white/20 -translate-x-12 -translate-y-12 hidden lg:block" />

@@ -62,6 +62,8 @@ export default function Navbar() {
                         <button
                             className="md:hidden text-white/60 hover:text-white transition-colors pl-2"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                            aria-expanded={isMobileMenuOpen}
                         >
                             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -81,6 +83,7 @@ export default function Navbar() {
                         <button
                             className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
+                            aria-label="Close menu"
                         >
                             <X size={32} />
                         </button>
@@ -110,7 +113,13 @@ export default function Navbar() {
                         </div>
 
                         <div className="absolute bottom-16 flex space-x-12">
-                            <a href="https://www.instagram.com/_profileshots_?igsh=MWJ1bGl3bjZmZGI4YQ==" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white">
+                            <a
+                                href="https://www.instagram.com/_profileshots_?igsh=MWJ1bGl3bjZmZGI4YQ=="
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-white/40 hover:text-white"
+                                aria-label="Instagram"
+                            >
                                 <Instagram size={28} />
                             </a>
                             <a
@@ -118,6 +127,7 @@ export default function Navbar() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-white/40 hover:text-white"
+                                aria-label="Email"
                             >
                                 <svg
                                     viewBox="0 0 24 24"

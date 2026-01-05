@@ -1,22 +1,26 @@
-"use client";
-
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
         <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-            {/* Premium Background with Parallax and Dot Grid */}
+            {/* Premium Background with Next.js Image Optimization */}
             <div className="absolute inset-0 z-0">
                 <motion.div
                     initial={{ scale: 1.1 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{
-                        backgroundImage: "url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2070&auto=format&fit=crop')",
-                        filter: "brightness(0.35) contrast(1.1)"
-                    }}
-                />
+                    className="relative w-full h-full"
+                >
+                    <Image
+                        src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2070&auto=format&fit=crop"
+                        alt="Photography Hero Background"
+                        fill
+                        priority
+                        className="object-cover brightness-[0.35] contrast-[1.1]"
+                        sizes="100vw"
+                    />
+                </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
                 <div className="absolute inset-0 opacity-[0.1]"
                     style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "30px 30px" }} />

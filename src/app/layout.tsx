@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   description: "Explore the professional photography portfolio of Priyanshu Bandhu. Specializing in honest portraits, candid wedding moments, and authentic street photography in India.",
   keywords: ["photography", "portrait photography", "wedding photography", "street photography", "India photographer", "llprofileshotsll", "Priyanshu Bandhu"],
   authors: [{ name: "Priyanshu Bandhu" }],
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "llprofileshotsll | Priyanshu Bandhu",
     description: "Honest portraits and candid moments captured through light and authenticity.",

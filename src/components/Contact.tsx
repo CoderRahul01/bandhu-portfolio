@@ -68,6 +68,7 @@ export default function Contact() {
                             <button
                                 onClick={() => setIsModalOpen(false)}
                                 className="absolute top-8 right-8 text-white/30 hover:text-white transition-colors"
+                                aria-label="Close modal"
                             >
                                 <X size={24} />
                             </button>
@@ -78,50 +79,70 @@ export default function Contact() {
                                     <h3 className="text-4xl sm:text-6xl font-bold tracking-tighter uppercase leading-none italic">Book <br /> Session.</h3>
                                 </div>
 
-                                <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-widest pl-1">Shoot Type</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            placeholder="e.g. Portrait, Wedding"
-                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors placeholder:text-white/10"
-                                            value={formData.shootType}
-                                            onChange={(e) => setFormData({ ...formData, shootType: e.target.value })}
-                                        />
+                                <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Shoot Type</label>
+                                        <div className="relative group/select">
+                                            <select
+                                                required
+                                                className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer pr-8"
+                                                value={formData.shootType}
+                                                onChange={(e) => setFormData({ ...formData, shootType: e.target.value })}
+                                            >
+                                                <option value="" disabled className="bg-neutral-900">Select Session</option>
+                                                <option value="Portrait" className="bg-neutral-900">Honest Portrait</option>
+                                                <option value="Wedding" className="bg-neutral-900">Candid Wedding</option>
+                                                <option value="Street" className="bg-neutral-900">Street Editorial</option>
+                                                <option value="Commercial" className="bg-neutral-900">Brand / Commercial</option>
+                                            </select>
+                                            <div className="absolute right-0 bottom-3 pointer-events-none text-white/20 group-hover/select:text-white transition-colors">
+                                                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-widest pl-1">Date</label>
+
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Preferred Date</label>
                                         <input
-                                            type="text"
+                                            type="date"
                                             required
-                                            placeholder="Preferred Date"
-                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors placeholder:text-white/10"
+                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors [color-scheme:dark]"
                                             value={formData.date}
                                             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-widest pl-1">Location</label>
+
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Location</label>
                                         <input
                                             type="text"
                                             required
                                             placeholder="City / Venue"
-                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors placeholder:text-white/10"
+                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors placeholder:text-white/5"
                                             value={formData.location}
                                             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-widest pl-1">Duration</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            placeholder="e.g. 4 Hours"
-                                            className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors placeholder:text-white/10"
-                                            value={formData.duration}
-                                            onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                                        />
+
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em] pl-1">Duration</label>
+                                        <div className="relative group/select">
+                                            <select
+                                                required
+                                                className="w-full bg-transparent border-b border-white/10 text-white pb-2 text-sm focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer pr-8"
+                                                value={formData.duration}
+                                                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                                            >
+                                                <option value="" disabled className="bg-neutral-900">Select Length</option>
+                                                <option value="2 Hours" className="bg-neutral-900">2 Hours</option>
+                                                <option value="4 Hours" className="bg-neutral-900">4 Hours</option>
+                                                <option value="Full Day" className="bg-neutral-900">Full Day (8h)</option>
+                                                <option value="Multi-day" className="bg-neutral-900">Multi-day Project</option>
+                                            </select>
+                                            <div className="absolute right-0 bottom-3 pointer-events-none text-white/20 group-hover/select:text-white transition-colors">
+                                                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div className="hidden">
@@ -134,12 +155,12 @@ export default function Contact() {
                                             autoComplete="off"
                                         />
                                     </div>
-                                    <div className="sm:col-span-2 pt-6">
+                                    <div className="sm:col-span-2 pt-10">
                                         <button
                                             type="submit"
-                                            className="w-full bg-white text-black font-bold uppercase tracking-[0.2em] text-[10px] py-6 hover:bg-neutral-200 transition-all flex items-center justify-center group"
+                                            className="w-full bg-white text-black font-bold uppercase tracking-[0.4em] text-[11px] py-6 hover:bg-neutral-200 transition-all flex items-center justify-center group rounded-sm"
                                         >
-                                            Generate Quotation <ArrowUpRight size={14} className="ml-2 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                            Generate Quotation <ArrowUpRight size={16} className="ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                                         </button>
                                     </div>
                                 </form>
@@ -190,6 +211,7 @@ export default function Contact() {
                         transition={{ delay: 0.1 }}
                         onClick={() => setIsModalOpen(true)}
                         className="flex flex-col items-center justify-center p-10 sm:p-14 bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.03] transition-all group rounded-sm w-full"
+                        aria-label="Request quotation"
                     >
                         <Mail size={40} className="text-white/20 group-hover:text-white transition-colors mb-6" />
                         <div className="text-center space-y-2">
