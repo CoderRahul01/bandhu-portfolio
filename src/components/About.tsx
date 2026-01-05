@@ -39,19 +39,19 @@ export default function About() {
                     className="space-y-10 order-1 lg:order-2 text-center lg:text-left"
                 >
                     <div className="space-y-4">
-                        <span className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase">The Visionary</span>
-                        <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter leading-[0.9] uppercase">Priyanshu <br /> Bandhu</h2>
+                        <span className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase">The Artisan</span>
+                        <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter leading-[0.9] uppercase font-display">Priyanshu <br /> Bandhu</h2>
                     </div>
 
                     <div className="space-y-6 text-white/40 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
                         <p>
-                            Under the name <span className="text-white">llprofileshotsll</span>, I focus on creating honest portraits and candid moments that feel natural and unforced.
+                            Operating as <span className="text-white">llprofileshotsll</span>, I specialize in the art of the unposed — capturing the profound honesty that exists within a single, shared moment.
                         </p>
                         <p>
-                            My approach is simple — observe quietly, understand the person in front of the lens, and let real expressions emerge without interruption. I believe the strongest photographs are created when people are comfortable being themselves.
+                            My methodology is rooted in silence and observation. I am not interested in manufactured perfection; I seek the raw, quiet grace that emerges when the lens becomes invisible and the soul reveals itself.
                         </p>
                         <p>
-                            Based in India, my work revolves around portraits, weddings, and street moments, capturing emotion through light, timing, and authenticity. Every frame is an attempt to preserve a moment exactly as it felt.
+                            From the vibrant streets of India to the intimate rhythms of a wedding day, my work is a study of light, timing, and human connection. Every frame is a dedicated attempt to preserve life exactly as it felt.
                         </p>
                     </div>
 

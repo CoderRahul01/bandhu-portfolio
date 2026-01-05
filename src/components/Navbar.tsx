@@ -57,7 +57,7 @@ export default function Navbar() {
                             href="#contact"
                             className="bg-white text-black px-6 py-2 rounded-sm hover:bg-neutral-200 transition-all uppercase tracking-widest text-[8px] font-bold"
                         >
-                            Request Quote
+                            Inquire
                         </Link>
                         <button
                             className="md:hidden text-white/60 hover:text-white transition-colors pl-2"
@@ -91,24 +91,24 @@ export default function Navbar() {
                         <div className="flex flex-col items-center space-y-12">
                             <Link
                                 href="#portfolio"
-                                className="text-4xl sm:text-5xl font-bold tracking-tighter uppercase"
+                                className="text-4xl sm:text-5xl font-bold tracking-tighter uppercase font-display"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Work
                             </Link>
                             <Link
                                 href="#about"
-                                className="text-4xl sm:text-5xl font-bold tracking-tighter uppercase"
+                                className="text-4xl sm:text-5xl font-bold tracking-tighter uppercase font-display"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Story
                             </Link>
                             <Link
                                 href="#contact"
-                                className="text-4xl sm:text-5xl font-bold tracking-tighter uppercase"
+                                className="text-4xl sm:text-5xl font-bold tracking-tighter uppercase font-display"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
-                                Contact
+                                Inquire
                             </Link>
                         </div>
 

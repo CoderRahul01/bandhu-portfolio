@@ -42,13 +42,13 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.2 }}
-                    className="mb-10 leading-[0.9]"
+                    className="mb-10 leading-[0.9] font-display"
                 >
-                    <span className="text-white font-bold tracking-tighter text-5xl sm:text-7xl lg:text-9xl">Silent</span>{" "}
-                    <span className="text-4xl sm:text-6xl lg:text-8xl font-normal italic text-white/50">moments.</span>
+                    <span className="text-white font-bold tracking-tighter text-5xl sm:text-7xl lg:text-9xl">Sculpting</span>{" "}
+                    <span className="text-4xl sm:text-6xl lg:text-8xl font-normal italic text-white/50">light.</span>
                     <br />
-                    <span className="text-4xl sm:text-6xl lg:text-8xl font-normal italic text-white/50">Powerful</span>{" "}
-                    <span className="text-white font-bold tracking-tighter text-5xl sm:text-7xl lg:text-9xl">portraits.</span>
+                    <span className="text-4xl sm:text-6xl lg:text-8xl font-normal italic text-white/50">Crafting</span>{" "}
+                    <span className="text-white font-bold tracking-tighter text-5xl sm:text-7xl lg:text-9xl">silence.</span>
                 </motion.h1>
 
                 <motion.div
@@ -62,13 +62,13 @@ export default function Hero() {
                             href="#portfolio"
                             className="w-full sm:w-auto px-12 py-4 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all rounded-sm"
                         >
-                            Explore Work
+                            View Collection
                         </a>
                         <a
                             href="#contact"
                             className="w-full sm:w-auto px-12 py-4 border border-white/20 text-white text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-white/10 transition-all rounded-sm"
                         >
-                            Get In Touch
+                            Begin Dialogue
                         </a>
                     </div>
                     <p className="text-white/30 text-[10px] tracking-widest uppercase">

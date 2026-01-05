@@ -76,7 +76,7 @@ export default function Contact() {
                             <div className="space-y-10 relative z-10">
                                 <div className="space-y-4">
                                     <p className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase">Inquiry form</p>
-                                    <h3 className="text-4xl sm:text-6xl font-bold tracking-tighter uppercase leading-none italic">Book <br /> Session.</h3>
+                                    <h3 className="text-4xl sm:text-6xl font-bold tracking-tighter uppercase leading-none italic font-display">Secure <br /> Date.</h3>
                                 </div>
 
                                 <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
@@ -160,7 +160,7 @@ export default function Contact() {
                                             type="submit"
                                             className="w-full bg-white text-black font-bold uppercase tracking-[0.4em] text-[11px] py-6 hover:bg-neutral-200 transition-all flex items-center justify-center group rounded-sm"
                                         >
-                                            Generate Quotation <ArrowUpRight size={16} className="ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                            Submit Inquiry <ArrowUpRight size={16} className="ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                                         </button>
                                     </div>
                                 </form>
@@ -179,9 +179,9 @@ export default function Contact() {
                     >
                         Get In Touch
                     </motion.p>
-                    <h2 className="text-5xl sm:text-8xl font-bold tracking-tighter uppercase leading-[0.85] italic">Let's <br /> Create.</h2>
+                    <h2 className="text-5xl sm:text-8xl font-bold tracking-tighter uppercase leading-[0.85] italic font-display">Let's <br /> Create.</h2>
                     <p className="text-white/30 text-sm sm:text-base max-w-sm mx-auto font-light leading-relaxed">
-                        Ready to capture your next project? Secure your date and let's tell a story together.
+                        Ready to document your next chapter? Reserve your date and let's craft a narrative together.
                     </p>
                 </div>
 
@@ -217,7 +217,7 @@ export default function Contact() {
                         <div className="text-center space-y-2">
                             <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">Inquiry</p>
                             <p className="text-base font-medium flex items-center justify-center">
-                                Get Quotation <ArrowUpRight size={14} className="ml-1 opacity-20 group-hover:opacity-100 transition-opacity" />
+                                Request Quote <ArrowUpRight size={14} className="ml-1 opacity-20 group-hover:opacity-100 transition-opacity" />
                             </p>
                         </div>
                     </motion.button>
