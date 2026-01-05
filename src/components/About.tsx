@@ -15,7 +15,7 @@ export default function About() {
                 >
                     <div className="aspect-[3/4] overflow-hidden rounded-sm grayscale">
                         <img
-                            src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=687&auto=format&fit=crop"
+                            src="https://res.cloudinary.com/dcm3t1tyj/image/upload/v1767628455/bandhu-portfolio/ABOUT/priyanshu-bandhu.jpg"
                             alt="Priyanshu Bandhu"
                             className="w-full h-full object-cover transition-all duration-1000 scale-105 hover:scale-100"
                         />

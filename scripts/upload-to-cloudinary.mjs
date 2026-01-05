@@ -13,8 +13,9 @@ cloudinary.config({
 const IMAGES_DIR = './public/images';
 
 async function uploadImages() {
-    const categories = ['PORTRAITS', 'WEDDING', 'STREET'];
+    const categories = ['PORTRAITS', 'WEDDING', 'STREET', 'ABOUT'];
     const results = [];
+    const aboutResults = [];
 
     for (const category of categories) {
         const dirPath = path.join(IMAGES_DIR, category);
@@ -22,7 +23,7 @@ async function uploadImages() {
 
         const files = fs.readdirSync(dirPath);
         for (const file of files) {
-            if (!file.endsWith('.jpg') && !file.endsWith('.png')) continue;
+            if (!file.endsWith('.jpg') && !file.endsWith('.jpeg') && !file.endsWith('.png')) continue;
 
             const filePath = path.join(dirPath, file);
             console.log(`Uploading ${filePath}...`);
@@ -35,12 +36,18 @@ async function uploadImages() {
                     unique_filename: false,
                 });
 
-                results.push({
+                const resultData = {
                     id: `${category.toLowerCase()}-${path.parse(file).name}`,
                     category,
                     url: result.secure_url,
                     title: `${category.charAt(0)}${category.slice(1).toLowerCase()} ${path.parse(file).name}`,
-                });
+                };
+
+                if (category === 'ABOUT') {
+                    aboutResults.push(resultData);
+                } else {
+                    results.push(resultData);
+                }
                 console.log(`Successfully uploaded ${file}`);
             } catch (error) {
                 console.error(`Failed to upload ${file}:`, error.message);
@@ -55,6 +62,14 @@ async function uploadImages() {
         path.join(dataDir, 'gallery.json'),
         JSON.stringify(results, null, 2)
     );
+
+    if (aboutResults.length > 0) {
+        fs.writeFileSync(
+            path.join(dataDir, 'about.json'),
+            JSON.stringify(aboutResults, null, 2)
+        );
+        console.log('src/data/about.json has been updated.');
+    }
 
     console.log('\nMigration Complete! src/data/gallery.json has been updated with Cloudinary URLs.');
     console.log('You can now safely delete the local public/images folder.');
