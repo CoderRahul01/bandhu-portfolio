@@ -10,13 +10,33 @@ export default function Contact() {
         shootType: "",
         date: "",
         location: "",
-        duration: ""
+        duration: "",
+        honeypot: "" // Hidden field for bot detection
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const subject = `Photography Inquiry: ${formData.shootType}`;
-        const body = `Hi Priyanshu,%0D%0A%0D%0AI would like to inquire about your photography services for:%0D%0A%0D%0A- Shoot Type: ${formData.shootType}%0D%0A- Date: ${formData.date}%0D%0A- Location: ${formData.location}%0D%0A- Duration: ${formData.duration}%0D%0A%0D%0ALooking forward to discussing this project with you!`;
+
+        // Bot check
+        if (formData.honeypot) {
+            console.warn("Potential bot detected");
+            return;
+        }
+
+        // Basic validation/sanitization
+        const sanitize = (str: string) => str.replace(/[<>]/g, "").trim().substring(0, 100);
+        const shootType = sanitize(formData.shootType);
+        const date = sanitize(formData.date);
+        const location = sanitize(formData.location);
+        const duration = sanitize(formData.duration);
+
+        if (!shootType || !date || !location || !duration) {
+            alert("Please fill in all fields correctly.");
+            return;
+        }
+
+        const subject = `Photography Inquiry: ${shootType}`;
+        const body = `Hi Priyanshu,%0D%0A%0D%0AI would like to inquire about your photography services for:%0D%0A%0D%0A- Shoot Type: ${shootType}%0D%0A- Date: ${date}%0D%0A- Location: ${location}%0D%0A- Duration: ${duration}%0D%0A%0D%0ALooking forward to discussing this project with you!`;
 
         window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=llprofileshotsll@gmail.com&su=${subject}&body=${body}`, '_blank');
         setIsModalOpen(false);
@@ -104,6 +124,16 @@ export default function Contact() {
                                         />
                                     </div>
 
+                                    <div className="hidden">
+                                        <input
+                                            type="text"
+                                            name="honeypot"
+                                            value={formData.honeypot}
+                                            onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                        />
+                                    </div>
                                     <div className="sm:col-span-2 pt-6">
                                         <button
                                             type="submit"

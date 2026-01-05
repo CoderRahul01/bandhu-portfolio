@@ -13,8 +13,73 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "llprofileshotsll | Priyanshu Bandhu",
-  description: "Professional photography portfolio of Priyanshu Bandhu specializing in human portraits, nature, and street photography.",
+  title: "llprofileshotsll | Priyanshu Bandhu | Professional Photography",
+  description: "Explore the professional photography portfolio of Priyanshu Bandhu. Specializing in honest portraits, candid wedding moments, and authentic street photography in India.",
+  keywords: ["photography", "portrait photography", "wedding photography", "street photography", "India photographer", "llprofileshotsll", "Priyanshu Bandhu"],
+  authors: [{ name: "Priyanshu Bandhu" }],
+  openGraph: {
+    title: "llprofileshotsll | Priyanshu Bandhu",
+    description: "Honest portraits and candid moments captured through light and authenticity.",
+    url: "https://llprofileshotsll.com",
+    siteName: "llprofileshotsll",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dcm3t1tyj/image/upload/v1767628455/bandhu-portfolio/ABOUT/priyanshu-bandhu.jpg",
+        width: 1200,
+        height: 630,
+        alt: "llprofileshotsll - Priyanshu Bandhu Photography",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "llprofileshotsll | Priyanshu Bandhu",
+    description: "Honest portraits and candid moments captured through light and authenticity.",
+    images: ["https://res.cloudinary.com/dcm3t1tyj/image/upload/v1767628455/bandhu-portfolio/ABOUT/priyanshu-bandhu.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "llprofileshotsll",
+  "image": "https://res.cloudinary.com/dcm3t1tyj/image/upload/v1767628455/bandhu-portfolio/ABOUT/priyanshu-bandhu.jpg",
+  "@id": "https://llprofileshotsll.com",
+  "url": "https://llprofileshotsll.com",
+  "telephone": "+91 82075-97203",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "India",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://www.instagram.com/_profileshots_/"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Priyanshu Bandhu"
+  },
+  "description": "Professional photography service specializing in portraits, weddings, and street photography.",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  }
 };
 
 import Navbar from "@/components/Navbar";
@@ -31,6 +96,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-white selection:text-black`}
       >
         <Navbar />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <main>{children}</main>
         <Footer />
       </body>
