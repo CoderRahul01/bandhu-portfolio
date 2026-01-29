@@ -20,15 +20,19 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import DateTimePicker from "./DateTimePicker";
 
 export default function Contact() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         shootType: "",
         date: "",
+        startTime: "",
+        endTime: "",
         location: "",
         duration: "",
-        honeypot: "" // Hidden field for bot detection
+        manualTime: false,
+        honeypot: ""
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -40,6 +44,19 @@ export default function Contact() {
             return;
         }
 
+        // Safe Mode Check
+        const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
+        if (isTestMode) {
+            console.log("Safe Mode: Email would be sent with following data:", {
+                to: "llprofileshotsll@gmail.com",
+                subject: `Photography Inquiry: ${formData.shootType}`,
+                body: `Shoot Type: ${formData.shootType}\nDate: ${formData.date}\nTime: ${formData.startTime} to ${formData.endTime}\nLocation: ${formData.location}`
+            });
+            alert("Safe Mode Enabled: Form submission logged to console (no email sent).");
+            setIsModalOpen(false);
+            return;
+        }
+
         // Basic validation/sanitization
         const sanitize = (str: string) => str.replace(/[<>]/g, "").trim().substring(0, 100);
         const shootType = sanitize(formData.shootType);
@@ -47,16 +64,30 @@ export default function Contact() {
         const location = sanitize(formData.location);
         const duration = sanitize(formData.duration);
 
-        if (!shootType || !date || !location || !duration) {
-            alert("Please fill in all fields correctly.");
+        if (!shootType || !date || !location || (!formData.duration && (!formData.startTime || !formData.endTime))) {
+            alert("Please fill in all fields correctly (including date and duration or time).");
             return;
         }
 
         const subject = `Photography Inquiry: ${shootType}`;
-        const body = `Hi Priyanshu,%0D%0A%0D%0AI would like to inquire about your photography services for:%0D%0A%0D%0A- Shoot Type: ${shootType}%0D%0A- Date: ${date}%0D%0A- Location: ${location}%0D%0A- Duration: ${duration}%0D%0A%0D%0ALooking forward to discussing this project with you!`;
+        const timeInfo = formData.duration 
+            ? `Duration: ${formData.duration === 'multi' ? 'Multi-day Project' : formData.duration}`
+            : `Time: ${formData.startTime} to ${formData.endTime}`;
+            
+        const body = `Hi Priyanshu,%0D%0A%0D%0AI would like to inquire about your photography services for:%0D%0A%0D%0A- Shoot Type: ${shootType}%0D%0A- Date: ${date}%0D%0A- ${timeInfo}%0D%0A- Location: ${location}%0D%0A%0D%0ALooking forward to discussing this project with you!`;
 
         window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=llprofileshotsll@gmail.com&su=${subject}&body=${body}`, '_blank');
         setIsModalOpen(false);
+    };
+
+    const handleReset = () => {
+        setFormData({
+            ...formData,
+            date: "",
+            startTime: "",
+            endTime: "",
+            duration: ""
+        });
     };
 
     return (
@@ -117,9 +148,9 @@ export default function Contact() {
                                 </div>
                             </motion.button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-xl bg-neutral-950/95 border-white/5 p-10 sm:p-16 rounded-sm shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)] backdrop-blur-2xl overflow-hidden focus:outline-none">
-                            {/* Subtle background flair */}
-                            <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-white/[0.01] rounded-full blur-[100px] pointer-events-none" />
+                        <DialogContent className="sm:max-w-2xl bg-black/90 border-white/10 p-8 sm:p-14 rounded-sm shadow-[0_0_100px_-10px_rgba(255,255,255,0.08)] backdrop-blur-3xl overflow-hidden focus:outline-none antialiased">
+                            {/* Subtle background flair - reduced intensity for clarity */}
+                            <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-white/[0.005] rounded-full blur-[120px] pointer-events-none" />
 
                             <DialogHeader className="space-y-4 relative z-10 text-left mb-2">
                                 <div className="flex items-center gap-3">
@@ -141,32 +172,45 @@ export default function Contact() {
                                         value={formData.shootType}
                                         onValueChange={(value) => setFormData({ ...formData, shootType: value })}
                                     >
-                                        <SelectTrigger className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/5 text-white/80 pb-3 text-sm rounded-none px-0 h-auto focus:ring-0 focus:border-white/40 transition-all hover:border-white/20">
+                                        <SelectTrigger className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/10 text-white/90 pb-3 text-sm rounded-none px-0 h-auto focus:ring-0 focus:border-white/40 transition-all hover:border-white/20">
                                             <SelectValue placeholder="Select Session" />
                                         </SelectTrigger>
-                                        <SelectContent className="bg-neutral-950 border-white/5 text-white/80 backdrop-blur-2xl">
-                                            <SelectItem value="Portrait" className="focus:bg-white/5 focus:text-white cursor-pointer">Honest Portrait</SelectItem>
-                                            <SelectItem value="Wedding" className="focus:bg-white/5 focus:text-white cursor-pointer">Candid Wedding</SelectItem>
-                                            <SelectItem value="Street" className="focus:bg-white/5 focus:text-white cursor-pointer">Street Editorial</SelectItem>
-                                            <SelectItem value="Commercial" className="focus:bg-white/5 focus:text-white cursor-pointer">Brand / Commercial</SelectItem>
+                                        <SelectContent className="bg-neutral-900 border border-white/10 text-white/90 shadow-2xl backdrop-blur-3xl p-1">
+                                            <SelectItem value="Portrait Shoot" className="focus:bg-white/5 focus:text-white cursor-pointer py-3 transition-colors px-4 border-b border-white/[0.02] last:border-0">Portrait Shoot</SelectItem>
+                                            <SelectItem value="Candid Shoot" className="focus:bg-white/5 focus:text-white cursor-pointer py-3 transition-colors px-4 border-b border-white/[0.02] last:border-0">Candid Shoot</SelectItem>
+                                            <SelectItem value="Wedding Shoot" className="focus:bg-white/5 focus:text-white cursor-pointer py-3 transition-colors px-4 border-b border-white/[0.02] last:border-0">Wedding Shoot</SelectItem>
+                                            <SelectItem value="Fashion Shoot" className="focus:bg-white/5 focus:text-white cursor-pointer py-3 transition-colors px-4 border-b border-white/[0.02] last:border-0">Fashion Shoot</SelectItem>
+                                            <SelectItem value="Brand & Commercial Shoot" className="focus:bg-white/5 focus:text-white cursor-pointer py-3 transition-colors px-4">Brand & Commercial Shoot</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
 
-                                <div className="space-y-4 group/field">
-                                    <Label className="text-[9px] text-white/30 font-bold uppercase tracking-[0.4em] pl-0.5 group-focus-within/field:text-white transition-colors">
-                                        Reserved Date
-                                    </Label>
-                                    <Input
-                                        type="date"
-                                        required
-                                        className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/5 text-white/80 pb-3 text-sm rounded-none px-0 h-auto focus-visible:ring-0 focus-visible:border-white/40 transition-all hover:border-white/20 [color-scheme:dark]"
-                                        value={formData.date}
-                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                <div className="sm:col-span-2 space-y-4 group/field">
+                                    <div className="flex items-center justify-between">
+                                        <Label className="text-[9px] text-white/30 font-bold uppercase tracking-[0.4em] pl-0.5 group-focus-within/field:text-white transition-colors">
+                                            Schedule & Duration
+                                        </Label>
+                                        {(formData.date || formData.startTime || formData.endTime) && (
+                                            <button 
+                                                type="button"
+                                                onClick={handleReset}
+                                                className="text-[8px] text-white/20 hover:text-white font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 px-2 py-1 rounded-full border border-white/5 hover:border-white/20"
+                                            >
+                                                Clear Selection
+                                            </button>
+                                        )}
+                                    </div>
+                                    <DateTimePicker 
+                                        date={formData.date}
+                                        startTime={formData.startTime}
+                                        endTime={formData.endTime}
+                                        duration={formData.duration}
+                                        onChange={(data) => setFormData({ ...formData, ...data })}
+                                        onClear={handleReset}
                                     />
                                 </div>
 
-                                <div className="space-y-4 group/field">
+                                <div className="sm:col-span-2 space-y-4 group/field">
                                     <Label className="text-[9px] text-white/30 font-bold uppercase tracking-[0.4em] pl-0.5 group-focus-within/field:text-white transition-colors">
                                         Venue / City
                                     </Label>
@@ -180,27 +224,6 @@ export default function Contact() {
                                     />
                                 </div>
 
-                                <div className="space-y-4 group/field">
-                                    <Label className="text-[9px] text-white/30 font-bold uppercase tracking-[0.4em] pl-0.5 group-focus-within/field:text-white transition-colors">
-                                        Time Frame
-                                    </Label>
-                                    <Select
-                                        required
-                                        value={formData.duration}
-                                        onValueChange={(value) => setFormData({ ...formData, duration: value })}
-                                    >
-                                        <SelectTrigger className="w-full bg-transparent border-t-0 border-x-0 border-b border-white/5 text-white/80 pb-3 text-sm rounded-none px-0 h-auto focus:ring-0 focus:border-white/40 transition-all hover:border-white/20">
-                                            <SelectValue placeholder="Session Length" />
-                                        </SelectTrigger>
-                                        <SelectContent className="bg-neutral-950 border-white/5 text-white/80 backdrop-blur-2xl">
-                                            <SelectItem value="2 Hours" className="focus:bg-white/5 focus:text-white cursor-pointer">2 Hours</SelectItem>
-                                            <SelectItem value="4 Hours" className="focus:bg-white/5 focus:text-white cursor-pointer">4 Hours</SelectItem>
-                                            <SelectItem value="Full Day" className="focus:bg-white/5 focus:text-white cursor-pointer">Full Day (8h)</SelectItem>
-                                            <SelectItem value="Multi-day" className="focus:bg-white/5 focus:text-white cursor-pointer">Multi-day Project</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-
                                 <div className="hidden">
                                     <input
                                         type="text"
@@ -211,18 +234,18 @@ export default function Contact() {
                                         autoComplete="off"
                                     />
                                 </div>
-                                <div className="sm:col-span-2 pt-12 flex flex-col items-center gap-8">
+                                <div className="sm:col-span-2 pt-16 flex flex-col items-center gap-10">
                                     <Button
                                         type="submit"
-                                        className="w-full bg-white text-black font-bold uppercase tracking-[0.5em] text-[10px] py-10 hover:bg-neutral-200 transition-all flex items-center justify-center group rounded-sm h-auto shadow-2xl relative overflow-hidden"
+                                        className="w-full bg-white text-black font-bold uppercase tracking-[0.5em] text-[10px] py-12 hover:bg-neutral-200 transition-all flex items-center justify-center group rounded-sm h-auto shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden active:scale-[0.98]"
                                     >
                                         <span className="relative z-10 flex items-center">
                                             Initiate Dialogue <ArrowUpRight size={14} className="ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                                         </span>
                                     </Button>
-                                    <div className="flex flex-col items-center gap-2 opacity-20 hover:opacity-100 transition-opacity duration-700">
-                                        <div className="w-6 h-[1px] bg-white" />
-                                        <p className="text-[8px] font-bold tracking-[0.8em] uppercase text-white">Reserved 2024</p>
+                                    <div className="flex flex-col items-center gap-3 opacity-30 hover:opacity-100 transition-opacity duration-700">
+                                        <div className="w-8 h-[1px] bg-white/20" />
+                                        <p className="text-[8px] font-bold tracking-[0.8em] uppercase text-white/60">Reserved 2024</p>
                                     </div>
                                 </div>
                             </form>

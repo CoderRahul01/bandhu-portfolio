@@ -26,6 +26,23 @@ async function uploadImages() {
             if (!file.endsWith('.jpg') && !file.endsWith('.jpeg') && !file.endsWith('.png')) continue;
 
             const filePath = path.join(dirPath, file);
+            
+            if (process.env.DRY_RUN === 'true') {
+                console.log(`Dry Run: Would upload ${filePath} to bandhu-portfolio/${category}`);
+                const dummyResult = {
+                    id: `${category.toLowerCase()}-${path.parse(file).name}`,
+                    category,
+                    url: `https://res.cloudinary.com/dummy/${category}/${file}`,
+                    title: `${category.charAt(0)}${category.slice(1).toLowerCase()} ${path.parse(file).name}`,
+                };
+                if (category === 'ABOUT') {
+                    aboutResults.push(dummyResult);
+                } else {
+                    results.push(dummyResult);
+                }
+                continue;
+            }
+
             console.log(`Uploading ${filePath}...`);
 
             try {
