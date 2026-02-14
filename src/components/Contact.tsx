@@ -92,9 +92,6 @@ export default function Contact() {
 
     return (
         <section id="contact" className="py-24 sm:py-40 bg-black relative overflow-hidden">
-            {/* Decorative background element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-white/[0.03] rounded-full blur-[120px] -z-0" />
-
             <div className="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-20 lg:space-y-32">
                 <div className="space-y-6">
                     <motion.p
@@ -148,10 +145,7 @@ export default function Contact() {
                                 </div>
                             </motion.button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-2xl bg-black/90 border-white/10 p-8 sm:p-14 rounded-sm shadow-[0_0_100px_-10px_rgba(255,255,255,0.08)] backdrop-blur-3xl overflow-hidden focus:outline-none antialiased">
-                            {/* Subtle background flair - reduced intensity for clarity */}
-                            <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-white/[0.005] rounded-full blur-[120px] pointer-events-none" />
-
+                        <DialogContent className="sm:max-w-2xl bg-black border-white/10 p-8 sm:p-14 rounded-sm shadow-none backdrop-blur-3xl overflow-hidden focus:outline-none antialiased">
                             <DialogHeader className="space-y-4 relative z-10 text-left mb-2">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-[1px] bg-white/20" />

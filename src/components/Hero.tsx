@@ -24,8 +24,6 @@ export default function Hero() {
                     />
                 </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
-                <div className="absolute inset-0 opacity-[0.1]"
-                    style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
             </div>
 
             <div className="relative z-10 text-center px-6 max-w-5xl">
