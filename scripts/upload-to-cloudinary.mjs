@@ -13,72 +13,85 @@ cloudinary.config({
 const IMAGES_DIR = './public/images';
 
 async function uploadImages() {
-    const categories = ['PORTRAITS', 'WEDDING', 'STREET', 'ABOUT'];
+    const categories = ['PORTRAITS', 'WEDDING', 'STREET', 'about'];
     const results = [];
     const aboutResults = [];
 
+    console.log('Starting upload process...');
+
     for (const category of categories) {
         const dirPath = path.join(IMAGES_DIR, category);
-        if (!fs.existsSync(dirPath)) continue;
+        if (!fs.existsSync(dirPath)) {
+            console.warn(`Directory not found: ${dirPath}`);
+            continue;
+        }
 
         const files = fs.readdirSync(dirPath);
         for (const file of files) {
-            if (!file.endsWith('.jpg') && !file.endsWith('.jpeg') && !file.endsWith('.png')) continue;
+            if (!file.match(/\.(jpg|jpeg|png)$/i)) continue;
 
+            const publicId = `bandhu-portfolio/${category}/${path.parse(file).name}`;
             const filePath = path.join(dirPath, file);
             
-            if (process.env.DRY_RUN === 'true') {
-                console.log(`Dry Run: Would upload ${filePath} to bandhu-portfolio/${category}`);
-                const dummyResult = {
-                    id: `${category.toLowerCase()}-${path.parse(file).name}`,
-                    category,
-                    url: `https://res.cloudinary.com/dummy/${category}/${file}`,
-                    title: `${category.charAt(0)}${category.slice(1).toLowerCase()} ${path.parse(file).name}`,
-                };
-                if (category === 'ABOUT') {
-                    aboutResults.push(dummyResult);
-                } else {
-                    results.push(dummyResult);
-                }
-                continue;
-            }
-
-            console.log(`Uploading ${filePath}...`);
+            console.log(`Processing ${file}...`);
 
             try {
+                // We use overwrite: false to "skip" existing images
                 const result = await cloudinary.uploader.upload(filePath, {
                     folder: `bandhu-portfolio/${category}`,
                     public_id: path.parse(file).name,
                     use_filename: true,
                     unique_filename: false,
+                    overwrite: false, 
                 });
 
                 const resultData = {
                     id: `${category.toLowerCase()}-${path.parse(file).name}`,
-                    category,
+                    category: category.toUpperCase(),
                     url: result.secure_url,
-                    title: `${category.charAt(0)}${category.slice(1).toLowerCase()} ${path.parse(file).name}`,
+                    title: `${category.charAt(0).toUpperCase()}${category.slice(1).toLowerCase()} ${path.parse(file).name}`,
                 };
 
-                if (category === 'ABOUT') {
+                if (category.toUpperCase() === 'ABOUT' || category === 'about') {
                     aboutResults.push(resultData);
                 } else {
                     results.push(resultData);
                 }
                 console.log(`Successfully uploaded ${file}`);
             } catch (error) {
-                console.error(`Failed to upload ${file}:`, error.message);
+                if (error.message && error.message.includes('already exists')) {
+                    console.log(`Skipping ${file} - already exists in Cloudinary.`);
+                    
+                    const resultData = {
+                        id: `${category.toLowerCase()}-${path.parse(file).name}`,
+                        category: category.toUpperCase(),
+                        url: cloudinary.url(publicId, { secure: true }),
+                        title: `${category.charAt(0).toUpperCase()}${category.slice(1).toLowerCase()} ${path.parse(file).name}`,
+                    };
+
+                    if (category.toUpperCase() === 'ABOUT' || category === 'about') {
+                        aboutResults.push(resultData);
+                    } else {
+                        results.push(resultData);
+                    }
+                } else {
+                    console.error(`Failed to upload ${file}:`, error.message || error);
+                }
             }
         }
     }
 
-    // Save the new metadata
+    // Save the metadata
     const dataDir = './src/data';
     if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
-    fs.writeFileSync(
-        path.join(dataDir, 'gallery.json'),
-        JSON.stringify(results, null, 2)
-    );
+    
+    if (results.length > 0) {
+        fs.writeFileSync(
+            path.join(dataDir, 'gallery.json'),
+            JSON.stringify(results, null, 2)
+        );
+        console.log('src/data/gallery.json has been updated.');
+    }
 
     if (aboutResults.length > 0) {
         fs.writeFileSync(
@@ -88,8 +101,7 @@ async function uploadImages() {
         console.log('src/data/about.json has been updated.');
     }
 
-    console.log('\nMigration Complete! src/data/gallery.json has been updated with Cloudinary URLs.');
-    console.log('You can now safely delete the local public/images folder.');
+    console.log('\nSync Complete!');
 }
 
 uploadImages();
