@@ -145,7 +145,7 @@ export default function Contact() {
                                 </div>
                             </motion.button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-2xl bg-black border-white/10 p-8 sm:p-14 rounded-sm shadow-none backdrop-blur-3xl overflow-hidden focus:outline-none antialiased">
+                        <DialogContent className="sm:max-w-2xl bg-black border-white/10 p-6 sm:p-14 rounded-sm shadow-none backdrop-blur-3xl overflow-y-auto max-h-[90vh] focus:outline-none antialiased custom-scrollbar">
                             <DialogHeader className="space-y-4 relative z-10 text-left mb-2">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-[1px] bg-white/20" />
