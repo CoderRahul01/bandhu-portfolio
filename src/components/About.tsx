@@ -19,7 +19,7 @@ export default function About() {
                     viewport={{ once: true }}
                     className="relative order-2 lg:order-1"
                 >
-                    <div className="aspect-[3/4] overflow-hidden rounded-sm grayscale relative">
+                    <div className="aspect-[3/4] overflow-hidden rounded-sm relative">
                         <Image
                             loader={cloudinaryLoader}
                             src="https://res.cloudinary.com/dcm3t1tyj/image/upload/v1767628455/bandhu-portfolio/ABOUT/priyanshu-bandhu.jpg"

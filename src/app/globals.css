@@ -102,7 +102,6 @@ img {
   user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
-  filter: grayscale(100%);
   transition: filter 0.5s ease;
 }
 
