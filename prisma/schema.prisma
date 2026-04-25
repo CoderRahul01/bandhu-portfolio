@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id          String    @id @default(uuid())
+  title       String
+  slug        String    @unique
+  body        String    @db.Text
+  coverImage  String?
+  likesCount  Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  
+  comments    Comment[]
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+  content     String   @db.Text
+  authorName  String   @default("Anonymous")
+  createdAt   DateTime @default(now())
+  
+  blogId      String
+  blog        Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+}
+
+model GalleryImage {
+  id          String   @id @default(uuid())
+  url         String
+  type        String   @default("uncategorized") // e.g., portrait, landscape
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  deletedAt   DateTime?
+}

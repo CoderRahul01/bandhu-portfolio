@@ -40,20 +40,6 @@ export default function Contact() {
 
         // Bot check
         if (formData.honeypot) {
-            console.warn("Potential bot detected");
-            return;
-        }
-
-        // Safe Mode Check
-        const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
-        if (isTestMode) {
-            console.log("Safe Mode: Email would be sent with following data:", {
-                to: "llprofileshotsll@gmail.com",
-                subject: `Photography Inquiry: ${formData.shootType}`,
-                body: `Shoot Type: ${formData.shootType}\nDate: ${formData.date}\nTime: ${formData.startTime} to ${formData.endTime}\nLocation: ${formData.location}`
-            });
-            alert("Safe Mode Enabled: Form submission logged to console (no email sent).");
-            setIsModalOpen(false);
             return;
         }
 

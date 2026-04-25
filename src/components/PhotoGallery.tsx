@@ -4,11 +4,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-const CATEGORIES = ["ALL", "PORTRAITS", "WEDDING", "STREET"];
+type GalleryImage = {
+  id: string;
+  url: string;
+  type: string;
+  description: string | null;
+};
 
-// Cloudinary loader for optimized delivery
 const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-    // Cloudinary's auto-optimization and auto-format are better for performance
     const params = [
         `w_${width}`,
         'c_limit',
@@ -39,7 +42,6 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                     onLoad={() => setIsLoaded(true)}
                     priority={priority}
                 />
-                {/* Security Overlay (Transparent) */}
                 <div
                     className="absolute inset-0 z-10"
                     onContextMenu={(e) => e.preventDefault()}
@@ -50,15 +52,18 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
     );
 }
 
-export default function Gallery({ images }: { images: { id: string; url: string; title: string; category: string; }[] }) {
+export default function PhotoGallery({ images }: { images: GalleryImage[] }) {
     const [activeCategory, setActiveCategory] = useState("ALL");
+
+    // Extract unique categories from DB, make them uppercase
+    const categories = ["ALL", ...Array.from(new Set(images.map(img => img.type.toUpperCase())))];
 
     const filteredImages = activeCategory === "ALL"
         ? images
-        : images.filter(img => img.category.toUpperCase() === activeCategory);
+        : images.filter(img => img.type.toUpperCase() === activeCategory);
 
     return (
-        <section id="portfolio" className="py-24 sm:py-40 bg-black border-y border-white/5">
+        <section className="py-24 sm:py-40 bg-black min-h-screen">
             <div className="max-w-7xl mx-auto px-6 sm:px-12">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 space-y-12 lg:space-y-0 text-center lg:text-left">
                     <div className="space-y-4 max-w-xl">
@@ -67,16 +72,16 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                             whileInView={{ opacity: 1 }}
                             className="text-white/20 text-[10px] font-bold tracking-[0.6em] uppercase"
                         >
-                            Selection
+                            Full Archive
                         </motion.p>
-                        <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter uppercase leading-[0.85]">Selected <br /> Works</h2>
+                        <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter uppercase leading-[0.85]">Photo <br /> Gallery</h2>
                         <p className="text-white/30 text-xs sm:text-sm font-light max-w-xs mx-auto lg:mx-0">
-                            A curated collection across three distinct domains of photography.
+                            A complete archive of professional works spanning across various types and domains.
                         </p>
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-[10px] font-bold tracking-[0.3em] uppercase">
-                        {CATEGORIES.map((cat) => (
+                        {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
@@ -86,7 +91,7 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                                 {cat}
                                 {activeCategory === cat && (
                                     <motion.div
-                                        layoutId="underline"
+                                        layoutId="underlineGallery"
                                         className="absolute -bottom-1 left-0 right-0 h-[2px] bg-white opacity-50"
                                     />
                                 )}
@@ -114,7 +119,7 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                                 <div className="overflow-hidden aspect-[3/4] bg-neutral-900 rounded-sm relative">
                                     <ImageComponent
                                         url={image.url}
-                                        title={image.title}
+                                        title={image.description || "Gallery Image"}
                                         priority={index < 3}
                                     />
                                 </div>

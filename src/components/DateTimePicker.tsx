@@ -239,7 +239,7 @@ export default function DateTimePicker({ date, startTime, endTime, duration, onC
                 </AnimatePresence>
             </div>
 
-            <style jsx global>{`
+            <style>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 3px;
                 }

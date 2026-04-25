@@ -1,0 +1,1 @@
+src/components/BlogParallaxScroll.tsx(40,15): error TS17002: Expected corresponding JSX closing tag for 'motion.p'.
