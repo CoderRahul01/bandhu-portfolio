@@ -3,6 +3,8 @@ import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: "Blog | Bandhu Portfolio",
   description: "Insights, stories, and learnings from the lens of a professional photographer.",

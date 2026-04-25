@@ -4,7 +4,7 @@ import PhotoGallery from "@/components/PhotoGallery";
 import { prisma } from "@/lib/prisma";
 
 export const metadata = {
-  title: "Gallery | Bandhu Portfolio",
+  title: "Gallery | llProfileShotsll",
   description: "A complete archive of professional works spanning across various types and domains.",
 };
 

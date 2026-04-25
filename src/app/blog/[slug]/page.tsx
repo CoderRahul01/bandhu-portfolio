@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { addComment } from "@/app/actions/blog";
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({ where: { slug, deletedAt: null } });
