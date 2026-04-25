@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
@@ -26,7 +24,6 @@ export default async function BlogPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      <Navbar />
       <main className="flex-1 py-24 sm:py-40">
         <div className="max-w-7xl mx-auto px-6 sm:px-12">
           
@@ -71,7 +68,6 @@ export default async function BlogPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

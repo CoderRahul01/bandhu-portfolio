@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import PhotoGallery from "@/components/PhotoGallery";
 import { prisma } from "@/lib/prisma";
 
@@ -18,11 +16,9 @@ export default async function GalleryPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      <Navbar />
       <main className="flex-1">
         <PhotoGallery images={images} />
       </main>
-      <Footer />
     </div>
   );
 }

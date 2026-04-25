@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -46,7 +44,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      <Navbar />
       <main className="flex-1 py-24 sm:py-32">
         <article className="max-w-3xl mx-auto px-6 sm:px-12">
           <div className="space-y-6 text-center mb-16">
@@ -114,7 +111,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         </article>
       </main>
-      <Footer />
     </div>
   );
 }
