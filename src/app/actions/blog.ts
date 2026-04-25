@@ -25,3 +25,14 @@ export async function addComment(formData: FormData) {
 
   revalidatePath(`/blog/${blog.slug}`);
 }
+export async function likeBlog(blogId: string) {
+  if (!blogId) return;
+
+  const blog = await prisma.blog.update({
+    where: { id: blogId },
+    data: { likesCount: { increment: 1 } }
+  });
+
+  revalidatePath(`/blog/${blog.slug}`);
+  revalidatePath("/");
+}

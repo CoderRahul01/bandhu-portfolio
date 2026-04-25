@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' res.cloudinary.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' blob: data: res.cloudinary.com images.unsplash.com https://www.googletagmanager.com; font-src 'self' data: fonts.gstatic.com; connect-src 'self' res.cloudinary.com https://www.google-analytics.com https://analytics.google.com; frame-src 'none'; object-src 'none';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' res.cloudinary.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' blob: data: res.cloudinary.com images.unsplash.com https://www.googletagmanager.com; font-src 'self' data: fonts.gstatic.com; connect-src 'self' res.cloudinary.com https://www.google-analytics.com https://analytics.google.com; video-src 'self' res.cloudinary.com; frame-src 'none'; object-src 'none';",
           },
         ],
       },

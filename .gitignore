@@ -40,3 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 # image assets (private)
 /public/images/
+.env*.local

@@ -34,7 +34,9 @@ model Comment {
 model GalleryImage {
   id          String   @id @default(uuid())
   url         String
-  type        String   @default("uncategorized") // e.g., portrait, landscape
+  mediaType   String   @default("image") // image or video
+  type        String   @default("uncategorized") // e.g., portrait, wedding
+  folder      String   @default("general") // Cloudinary folder organization
   description String?  @db.Text
   createdAt   DateTime @default(now())
   deletedAt   DateTime?

@@ -2,8 +2,13 @@
 
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
-import { uploadImage, deleteImage } from "@/lib/cloudinary";
+import { uploadMedia, uploadImage, deleteImage, BLOG_COVER_IMAGE_FOLDER, CLOUDINARY_ROOT_FOLDER } from "@/lib/cloudinary";
 import { revalidatePath } from "next/cache";
+
+export type BlogActionState = {
+  status: "idle" | "success" | "error";
+  message: string;
+};
 
 // ----------------- Auth -----------------
 
@@ -47,6 +52,24 @@ function getPublicIdFromUrl(url: string) {
   }
 }
 
+function hasCloudinaryConfig() {
+  return Boolean(
+    process.env.CLOUDINARY_CLOUD_NAME &&
+      process.env.CLOUDINARY_API_KEY &&
+      process.env.CLOUDINARY_API_SECRET
+  );
+}
+
+function buildSlug(title: string) {
+  const baseSlug = title
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return `${baseSlug || "blog"}-${Date.now()}`;
+}
+
 export async function purgeOldSoftDeletedData() {
   const isAuth = await checkAdminAuth();
   if (!isAuth) return;
@@ -87,23 +110,33 @@ export async function uploadGalleryImage(formData: FormData) {
 
   const file = formData.get("file") as File;
   const type = formData.get("type") as string || "uncategorized";
+  const customFolder = formData.get("folder") as string || "";
   const description = formData.get("description") as string || "";
 
   if (!file) throw new Error("No file provided");
 
+  const folder = customFolder 
+    ? `${CLOUDINARY_ROOT_FOLDER}/${customFolder.trim().replace(/\s+/g, '_')}` 
+    : CLOUDINARY_ROOT_FOLDER;
+
   const buffer = Buffer.from(await file.arrayBuffer());
-  const uploadResult = await uploadImage(buffer);
+  const resourceType = file.type.startsWith("video/") ? "video" : "image";
+  
+  const uploadResult = await uploadMedia(buffer, folder, resourceType);
 
   await prisma.galleryImage.create({
     data: {
       url: uploadResult.secure_url,
+      mediaType: resourceType,
       type,
+      folder: customFolder || "general",
       description
     }
   });
 
   revalidatePath("/gallery");
   revalidatePath("/admin");
+  revalidatePath("/");
 }
 
 export async function softDeleteGalleryImage(id: string) {
@@ -134,36 +167,72 @@ export async function restoreGalleryImage(id: string) {
 
 // ----------------- Blog Actions -----------------
 
-export async function createBlog(formData: FormData) {
-  const isAuth = await checkAdminAuth();
-  if (!isAuth) throw new Error("Unauthorized");
-
-  const title = formData.get("title") as string;
-  const body = formData.get("body") as string;
-  const file = formData.get("coverImage") as File;
-
-  if (!title || !body) throw new Error("Title and body are required");
-
-  let coverImageUrl = null;
-  if (file && file.size > 0) {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const uploadResult = await uploadImage(buffer);
-    coverImageUrl = uploadResult.secure_url;
-  }
-
-  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now();
-
-  await prisma.blog.create({
-    data: {
-      title,
-      slug,
-      body,
-      coverImage: coverImageUrl
+export async function createBlog(
+  _prevState: BlogActionState,
+  formData: FormData
+): Promise<BlogActionState> {
+  try {
+    const isAuth = await checkAdminAuth();
+    if (!isAuth) {
+      return {
+        status: "error",
+        message: "Admin session expired. Please log in again.",
+      };
     }
-  });
 
-  revalidatePath("/blog");
-  revalidatePath("/admin");
+    const title = (formData.get("title") as string | null)?.trim() || "";
+    const body = (formData.get("body") as string | null)?.trim() || "";
+    const file = formData.get("coverImage");
+
+    if (!title || !body) {
+      return {
+        status: "error",
+        message: "Title and body are required to publish a blog.",
+      };
+    }
+
+    let coverImageUrl: string | null = null;
+    if (file instanceof File && file.size > 0) {
+      if (!hasCloudinaryConfig()) {
+        return {
+          status: "error",
+          message:
+            "Cover image upload requires CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in Vercel.",
+        };
+      }
+
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const uploadResult = await uploadImage(buffer, BLOG_COVER_IMAGE_FOLDER);
+      coverImageUrl = uploadResult.secure_url;
+    }
+
+    await prisma.blog.create({
+      data: {
+        title,
+        slug: buildSlug(title),
+        body,
+        coverImage: coverImageUrl,
+      },
+    });
+
+    revalidatePath("/blog");
+    revalidatePath("/admin");
+
+    return {
+      status: "success",
+      message: "Blog published successfully.",
+    };
+  } catch (error) {
+    console.error("Failed to create blog", error);
+
+    return {
+      status: "error",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Blog upload failed due to an unexpected server error.",
+    };
+  }
 }
 
 export async function softDeleteBlog(id: string) {

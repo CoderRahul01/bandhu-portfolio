@@ -8,21 +8,37 @@ type GalleryImage = {
   id: string;
   url: string;
   type: string;
+  mediaType: string;
   description: string | null;
 };
 
-const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-    const params = [
-        `w_${width}`,
-        'c_limit',
-        `q_${quality || 'auto'}`,
-        'f_auto'
-    ].join(',');
-    return src.replace('/upload/', `/upload/${params}/`);
-};
-
-function ImageComponent({ url, title, priority = false }: { url: string; title: string; priority?: boolean }) {
+function MediaComponent({ url, title, mediaType, priority = false }: { url: string; title: string; mediaType: string; priority?: boolean }) {
     const [isLoaded, setIsLoaded] = useState(false);
+
+    if (mediaType === 'video') {
+        return (
+            <div className="w-full h-full relative group/video">
+                <video
+                    src={url}
+                    className="w-full h-full object-cover rounded-sm"
+                    muted
+                    loop
+                    playsInline
+                    onMouseOver={(e) => (e.target as HTMLVideoElement).play()}
+                    onMouseOut={(e) => {
+                        const v = e.target as HTMLVideoElement;
+                        v.pause();
+                        v.currentTime = 0;
+                    }}
+                />
+                <div className="absolute top-4 right-4 z-20">
+                    <div className="bg-black/50 backdrop-blur-md p-2 rounded-full border border-white/10">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -52,8 +68,8 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
     );
 }
 
-export default function PhotoGallery({ images }: { images: GalleryImage[] }) {
-    const [activeCategory, setActiveCategory] = useState("ALL");
+export default function PhotoGallery({ images, initialCategory }: { images: GalleryImage[], initialCategory?: string }) {
+    const [activeCategory, setActiveCategory] = useState(initialCategory?.toUpperCase() || "ALL");
 
     // Extract unique categories from DB, make them uppercase
     const categories = ["ALL", ...Array.from(new Set(images.map(img => img.type.toUpperCase())))];
@@ -74,7 +90,7 @@ export default function PhotoGallery({ images }: { images: GalleryImage[] }) {
                         >
                             Full Archive
                         </motion.p>
-                        <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter uppercase leading-[0.85]">Photo <br /> Gallery</h2>
+                        <h2 className="text-4xl sm:text-7xl font-bold tracking-tighter uppercase leading-[0.85]">Archive <br /> Gallery</h2>
                         <p className="text-white/30 text-xs sm:text-sm font-light max-w-xs mx-auto lg:mx-0">
                             A complete archive of professional works spanning across various types and domains.
                         </p>
@@ -117,9 +133,10 @@ export default function PhotoGallery({ images }: { images: GalleryImage[] }) {
                                 className="group relative"
                             >
                                 <div className="overflow-hidden aspect-[3/4] bg-neutral-900 rounded-sm relative">
-                                    <ImageComponent
+                                    <MediaComponent
                                         url={image.url}
                                         title={image.description || "Gallery Image"}
+                                        mediaType={image.mediaType}
                                         priority={index < 3}
                                     />
                                 </div>

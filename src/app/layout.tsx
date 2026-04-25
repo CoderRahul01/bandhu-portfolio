@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Script from "next/script";
+
+const siteUrl = "https://llprofileshotsll.in";
+const googleAnalyticsMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-FRKCVD9EV7";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -8,6 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "llprofileshotsll | Priyanshu Bandhu | Professional Photography",
   description: "Explore the professional photography portfolio of Priyanshu Bandhu. Specializing in honest portraits, candid wedding moments, and authentic street photography in India.",
   keywords: ["photography", "portrait photography", "wedding photography", "street photography", "India photographer", "llprofileshotsll", "Priyanshu Bandhu"],
@@ -19,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "llprofileshotsll | Priyanshu Bandhu",
     description: "Honest portraits and candid moments captured through light and authenticity.",
-    url: "https://llprofileshotsll.com",
+    url: siteUrl,
     siteName: "llprofileshotsll",
     images: [
       {
@@ -49,8 +57,8 @@ const jsonLd = {
   "@type": "ProfessionalService",
   "name": "llprofileshotsll",
   "image": "https://res.cloudinary.com/dcm3t1tyj/image/upload/v1767628455/bandhu-portfolio/ABOUT/priyanshu-bandhu.jpg",
-  "@id": "https://llprofileshotsll.com",
-  "url": "https://llprofileshotsll.com",
+  "@id": siteUrl,
+  "url": siteUrl,
   "telephone": "+91 82075-97203",
   "address": {
     "@type": "PostalAddress",
@@ -81,10 +89,6 @@ const jsonLd = {
   }
 };
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Script from "next/script";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -93,9 +97,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
         <Script
           strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-FRKCVD9EV7`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsMeasurementId}`}
         />
         <Script
           id="google-analytics"
@@ -104,8 +110,13 @@ export default function RootLayout({
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              window.gtag = gtag;
               gtag('js', new Date());
-              gtag('config', 'G-FRKCVD9EV7');
+              gtag('config', '${googleAnalyticsMeasurementId}', {
+                send_page_view: true,
+                page_path: window.location.pathname,
+                anonymize_ip: true
+              });
             `,
           }}
         />
@@ -113,6 +124,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased selection:bg-white selection:text-black`}
       >
+        <GoogleAnalytics measurementId={googleAnalyticsMeasurementId} />
         <Navbar />
         <script
           type="application/ld+json"

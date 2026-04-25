@@ -18,8 +18,33 @@ const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number;
     return src.replace('/upload/', `/upload/${params}/`);
 };
 
-function ImageComponent({ url, title, priority = false }: { url: string; title: string; priority?: boolean }) {
+function MediaComponent({ url, title, mediaType, priority = false }: { url: string; title: string; mediaType: string; priority?: boolean }) {
     const [isLoaded, setIsLoaded] = useState(false);
+
+    if (mediaType === 'video') {
+        return (
+            <div className="w-full h-full relative group/video">
+                <video
+                    src={url}
+                    className="w-full h-full object-cover rounded-sm"
+                    muted
+                    loop
+                    playsInline
+                    onMouseOver={(e) => (e.target as HTMLVideoElement).play()}
+                    onMouseOut={(e) => {
+                        const v = e.target as HTMLVideoElement;
+                        v.pause();
+                        v.currentTime = 0;
+                    }}
+                />
+                <div className="absolute top-4 right-4 z-20">
+                    <div className="bg-black/50 backdrop-blur-md p-2 rounded-full border border-white/10">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -39,7 +64,6 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
                     onLoad={() => setIsLoaded(true)}
                     priority={priority}
                 />
-                {/* Security Overlay (Transparent) */}
                 <div
                     className="absolute inset-0 z-10"
                     onContextMenu={(e) => e.preventDefault()}
@@ -50,12 +74,17 @@ function ImageComponent({ url, title, priority = false }: { url: string; title: 
     );
 }
 
-export default function Gallery({ images }: { images: { id: string; url: string; title: string; category: string; }[] }) {
+import Link from "next/link";
+
+export default function Gallery({ images }: { images: { id: string; url: string; title: string; type: string; mediaType: string; }[] }) {
     const [activeCategory, setActiveCategory] = useState("ALL");
 
     const filteredImages = activeCategory === "ALL"
         ? images
-        : images.filter(img => img.category.toUpperCase() === activeCategory);
+        : images.filter(img => img.type.toUpperCase() === activeCategory);
+
+    const displayedImages = filteredImages.slice(0, 6);
+    const hasMore = filteredImages.length > 6;
 
     return (
         <section id="portfolio" className="py-24 sm:py-40 bg-black border-y border-white/5">
@@ -100,7 +129,7 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 sm:gap-20"
                 >
                     <AnimatePresence mode="popLayout">
-                        {filteredImages.map((image, index) => (
+                        {displayedImages.map((image, index) => (
                             <motion.div
                                 key={image.id}
                                 layout
@@ -112,9 +141,10 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                                 className="group relative"
                             >
                                 <div className="overflow-hidden aspect-[3/4] bg-neutral-900 rounded-sm relative">
-                                    <ImageComponent
+                                    <MediaComponent
                                         url={image.url}
                                         title={image.title}
+                                        mediaType={image.mediaType}
                                         priority={index < 3}
                                     />
                                 </div>
@@ -122,6 +152,22 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                         ))}
                     </AnimatePresence>
                 </motion.div>
+
+                {hasMore && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className="mt-24 flex justify-center"
+                    >
+                        <Link 
+                            href={`/gallery?category=${activeCategory.toLowerCase()}`}
+                            className="group flex flex-col items-center gap-4 text-white/40 hover:text-white transition-colors"
+                        >
+                            <span className="text-[10px] font-bold tracking-[0.4em] uppercase">View Full Gallery</span>
+                            <div className="w-12 h-[1px] bg-white/20 group-hover:w-20 transition-all duration-500" />
+                        </Link>
+                    </motion.div>
+                )}
             </div>
         </section>
     );
