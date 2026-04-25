@@ -8,6 +8,8 @@ export const metadata = {
   description: "A complete archive of professional works spanning across various types and domains.",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function GalleryPage() {
   const images = await prisma.galleryImage.findMany({
     where: { deletedAt: null },
