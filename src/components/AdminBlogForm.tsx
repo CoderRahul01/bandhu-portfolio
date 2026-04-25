@@ -1,3 +1,5 @@
+"use client";
+
 import { useActionState, useState, useMemo } from "react";
 import { createBlog } from "@/app/actions/admin";
 import type { BlogActionState } from "@/app/actions/admin";
