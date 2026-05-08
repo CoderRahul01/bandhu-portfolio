@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import type { MotionValue } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -14,7 +15,7 @@ type BlogPreview = {
   body: string;
 };
 
-function BlogCard({ blog, index, progress, total }: { blog: BlogPreview; index: number; progress: any; total: number }) {
+function BlogCard({ blog, index, progress, total }: { blog: BlogPreview; index: number; progress: MotionValue<number>; total: number }) {
   const start = index / total;
   const end = (index + 1) / total;
   

@@ -58,7 +58,7 @@ export default function AdminBlogForm() {
         <input type="hidden" name="body" value={content} />
       </div>
 
-      <style jsx global>{`
+      <style>{`
         .ql-toolbar.ql-snow {
           border: none !important;
           border-bottom: 1px solid #27272a !important;

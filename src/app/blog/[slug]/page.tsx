@@ -40,7 +40,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
   });
 
-  if (!blog) notFound();
+  if (!blog) {
+    notFound();
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-zinc-300 font-sans">

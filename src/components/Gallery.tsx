@@ -4,8 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-const CATEGORIES = ["ALL", "PORTRAITS", "WEDDING", "STREET"];
-
 // Cloudinary loader for optimized delivery
 const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
     // Cloudinary's auto-optimization and auto-format are better for performance
@@ -79,10 +77,15 @@ import Link from "next/link";
 export default function Gallery({ images }: { images: { id: string; url: string; title: string; type: string; mediaType: string; }[] }) {
     const [activeCategory, setActiveCategory] = useState("ALL");
 
+    // Build categories dynamically from actual image types
+    const uniqueTypes = Array.from(new Set(images.map(img => img.type.toUpperCase())));
+    const categories = ["ALL", ...uniqueTypes];
+
     const filteredImages = activeCategory === "ALL"
         ? images
         : images.filter(img => img.type.toUpperCase() === activeCategory);
 
+    // Show only first 6 images on the landing page
     const displayedImages = filteredImages.slice(0, 6);
     const hasMore = filteredImages.length > 6;
 
@@ -105,7 +108,7 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-[10px] font-bold tracking-[0.3em] uppercase">
-                        {CATEGORIES.map((cat) => (
+                        {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
@@ -153,22 +156,22 @@ export default function Gallery({ images }: { images: { id: string; url: string;
                     </AnimatePresence>
                 </motion.div>
 
-                {hasMore && (
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        className="mt-24 flex justify-center"
+                {/* View More — always shown, links to full gallery page */}
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    className="mt-24 flex justify-center"
+                >
+                    <Link 
+                        href={activeCategory === "ALL" ? "/gallery" : `/gallery?category=${activeCategory.toLowerCase()}`}
+                        className="group flex flex-col items-center gap-4 text-white/40 hover:text-white transition-colors"
                     >
-                        <Link 
-                            href={`/gallery?category=${activeCategory.toLowerCase()}`}
-                            className="group flex flex-col items-center gap-4 text-white/40 hover:text-white transition-colors"
-                        >
-                            <span className="text-[10px] font-bold tracking-[0.4em] uppercase">View Full Gallery</span>
-                            <div className="w-12 h-[1px] bg-white/20 group-hover:w-20 transition-all duration-500" />
-                        </Link>
-                    </motion.div>
-                )}
+                        <span className="text-[10px] font-bold tracking-[0.4em] uppercase">View Full Gallery</span>
+                        <div className="w-12 h-[1px] bg-white/20 group-hover:w-20 transition-all duration-500" />
+                    </Link>
+                </motion.div>
             </div>
         </section>
     );
 }
+

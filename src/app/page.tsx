@@ -1,7 +1,8 @@
 import Hero from "@/components/Hero";
 import Gallery from "@/components/Gallery";
 import About from "@/components/About";
-import LandingBlogSection from "@/components/LandingBlogSection";
+// Blog section hidden for now — can be re-enabled later
+// import LandingBlogSection from "@/components/LandingBlogSection";
 import Contact from "@/components/Contact";
 
 import { prisma } from "@/lib/prisma";
@@ -12,8 +13,7 @@ export const revalidate = 300;
 export default async function Home() {
   const images = await prisma.galleryImage.findMany({
     where: { deletedAt: null },
-    orderBy: { createdAt: "desc" },
-    // Fetch all to allow local filtering on landing page
+    orderBy: { createdAt: "asc" }, // Oldest first — first uploaded appears first
   });
 
   const formattedImages = images.map((img: GalleryImage) => ({
@@ -29,7 +29,8 @@ export default async function Home() {
       <Hero />
       <Gallery images={formattedImages} />
       <About />
-      <LandingBlogSection />
+      {/* Blog section hidden for now — can be re-enabled later */}
+      {/* <LandingBlogSection /> */}
       <Contact />
     </div>
   );

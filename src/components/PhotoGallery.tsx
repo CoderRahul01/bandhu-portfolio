@@ -12,6 +12,14 @@ type GalleryImage = {
   description: string | null;
 };
 
+function cloudinaryLoader({ src, width, quality }: { src: string; width: number; quality?: number }) {
+    if (!src.includes("res.cloudinary.com")) {
+        return src;
+    }
+
+    return src.replace("/upload/", `/upload/f_auto,q_${quality || "auto"},w_${width}/`);
+}
+
 function MediaComponent({ url, title, mediaType, priority = false }: { url: string; title: string; mediaType: string; priority?: boolean }) {
     const [isLoaded, setIsLoaded] = useState(false);
 

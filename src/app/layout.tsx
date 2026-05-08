@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -124,7 +125,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased selection:bg-white selection:text-black`}
       >
-        <GoogleAnalytics measurementId={googleAnalyticsMeasurementId} />
+        <Suspense fallback={null}>
+          <GoogleAnalytics measurementId={googleAnalyticsMeasurementId} />
+        </Suspense>
         <Navbar />
         <script
           type="application/ld+json"

@@ -13,7 +13,7 @@ export default async function GalleryPage({ searchParams }: { searchParams: Prom
 
   const images = await prisma.galleryImage.findMany({
     where: { deletedAt: null },
-    orderBy: { createdAt: "desc" }
+    orderBy: { createdAt: "asc" } // Oldest first — first uploaded appears first
   });
 
   return (
